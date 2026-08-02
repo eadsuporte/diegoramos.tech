@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#050d1b">
+    <title>Página não encontrada | Diego Ramos</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f6f9ff;
+            --surface: #ffffff;
+            --surface-soft: #eef4ff;
+            --text: #10213f;
+            --text-soft: #5d6d87;
+            --line: #dce6f5;
+            --blue: #1769e0;
+            --blue-bright: #2f8cff;
+            --cyan: #00a9ce;
+            --header: rgba(246, 249, 255, .84);
+            --shadow: 0 28px 80px rgba(23, 68, 135, .14);
+            --panel: #07162e;
+            --panel-text: #eaf3ff;
+            --panel-soft: #91a5c2;
+        }
+
+        :root[data-theme="dark"] {
+            color-scheme: dark;
+            --bg: #050d1b;
+            --surface: #0b172b;
+            --surface-soft: #0c1d37;
+            --text: #edf5ff;
+            --text-soft: #9fb0ca;
+            --line: #1b3150;
+            --blue: #4c9aff;
+            --blue-bright: #62b0ff;
+            --cyan: #45d3ef;
+            --header: rgba(5, 13, 27, .84);
+            --shadow: 0 28px 90px rgba(0, 0, 0, .38);
+            --panel: #09172d;
+            --panel-text: #edf5ff;
+            --panel-soft: #9fb0ca;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            transition: background-color .28s ease, color .28s ease;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .page {
+            position: relative;
+            min-height: 100vh;
+            isolation: isolate;
+            overflow: hidden;
+        }
+
+        .page::before {
+            position: absolute;
+            z-index: -3;
+            inset: 78px 0 0;
+            background-image: linear-gradient(color-mix(in srgb, var(--line) 38%, transparent) 1px, transparent 1px),
+            linear-gradient(90deg, color-mix(in srgb, var(--line) 38%, transparent) 1px, transparent 1px);
+            background-size: 48px 48px;
+            content: "";
+            mask-image: linear-gradient(to bottom, #000, transparent 88%);
+            opacity: .46;
+        }
+
+        .glow {
+            position: absolute;
+            z-index: -2;
+            width: 560px;
+            height: 560px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .glow-left {
+            top: -270px;
+            left: -250px;
+            background: radial-gradient(circle, rgba(47, 140, 255, .25), transparent 68%);
+        }
+
+        .glow-right {
+            right: -260px;
+            bottom: -300px;
+            background: radial-gradient(circle, rgba(0, 190, 225, .18), transparent 68%);
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 48px));
+            margin: 0 auto;
+        }
+
+        header {
+            height: 78px;
+            border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+            background: var(--header);
+            backdrop-filter: blur(18px);
+        }
+
+        .header-inner {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand img {
+            display: block;
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 14px rgba(23, 105, 224, .24));
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-copy strong {
+            font-size: 15px;
+            letter-spacing: -.01em;
+        }
+
+        .brand-copy small {
+            color: var(--text-soft);
+            font-size: 10px;
+            font-weight: 650;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
+
+        .header-link {
+            color: var(--text-soft);
+            font-size: 13px;
+            font-weight: 650;
+            transition: color .2s ease;
+        }
+
+        .header-link:hover {
+            color: var(--blue);
+        }
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            min-width: 93px;
+            padding: 7px 12px 7px 7px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 650;
+            transition: border-color .2s ease, transform .2s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--blue);
+            transform: translateY(-1px);
+        }
+
+        .theme-icon {
+            display: grid;
+            width: 30px;
+            height: 30px;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--surface-soft);
+            color: var(--blue);
+        }
+
+        .theme-icon svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        main {
+            display: grid;
+            min-height: calc(100vh - 78px);
+            align-items: center;
+            padding: 64px 0 88px;
+        }
+
+        .error-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(380px, .86fr);
+            align-items: center;
+            gap: 92px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 13px;
+            border: 1px solid color-mix(in srgb, var(--blue) 38%, var(--line));
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 750;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow i {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 0 5px color-mix(in srgb, var(--cyan) 14%, transparent);
+        }
+
+        .error-number {
+            margin: 18px 0 -13px;
+            background: linear-gradient(115deg, var(--blue) 4%, var(--blue-bright) 52%, var(--cyan));
+            background-clip: text;
+            color: transparent;
+            font-size: clamp(108px, 13vw, 184px);
+            font-weight: 850;
+            letter-spacing: -.09em;
+            line-height: .96;
+        }
+
+        h1 {
+            max-width: 630px;
+            margin: 0;
+            font-size: clamp(40px, 4.8vw, 66px);
+            letter-spacing: -.055em;
+            line-height: 1.02;
+        }
+
+        .lead {
+            max-width: 590px;
+            margin: 25px 0 0;
+            color: var(--text-soft);
+            font-size: 17px;
+            line-height: 1.75;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .button {
+            display: inline-flex;
+            min-height: 50px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 21px;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            font-size: 13px;
+            font-weight: 720;
+            transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            border-color: transparent;
+            background: linear-gradient(135deg, var(--blue), var(--blue-bright));
+            box-shadow: 0 15px 35px color-mix(in srgb, var(--blue) 29%, transparent);
+            color: white;
+        }
+
+        .button-secondary {
+            background: var(--surface);
+        }
+
+        .button-secondary:hover {
+            border-color: var(--blue);
+        }
+
+        .button svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .route-panel {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(107, 161, 233, .2);
+            border-radius: 24px;
+            background: var(--panel);
+            box-shadow: var(--shadow);
+            color: var(--panel-text);
+            transform: rotate(1.2deg);
+        }
+
+        .route-panel::after {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 100% 0, rgba(0, 207, 236, .14), transparent 42%);
+            content: "";
+            pointer-events: none;
+        }
+
+        .panel-top {
+            display: flex;
+            height: 54px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            border-bottom: 1px solid rgba(107, 161, 233, .14);
+            color: var(--panel-soft);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 11px;
+        }
+
+        .dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dots i {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dots i:nth-child(1) {
+            background: #ff6b6b;
+        }
+
+        .dots i:nth-child(2) {
+            background: #f3bd4d;
+        }
+
+        .dots i:nth-child(3) {
+            background: #4ed18a;
+        }
+
+        .panel-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .panel-status i {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, .12);
+        }
+
+        .panel-body {
+            padding: 34px 30px 31px;
+        }
+
+        .panel-label {
+            color: var(--cyan);
+            font-size: 10px;
+            font-weight: 750;
+            letter-spacing: .14em;
+        }
+
+        .route-line {
+            display: grid;
+            grid-template-columns: 40px 1fr auto;
+            align-items: center;
+            gap: 14px;
+            min-height: 66px;
+            margin-top: 15px;
+            padding: 12px 14px;
+            border: 1px solid rgba(107, 161, 233, .14);
+            border-radius: 14px;
+            background: rgba(13, 34, 66, .72);
+        }
+
+        .route-icon {
+            display: grid;
+            width: 40px;
+            height: 40px;
+            place-items: center;
+            border-radius: 11px;
+            background: rgba(47, 140, 255, .14);
+            color: #62b0ff;
+        }
+
+        .route-icon svg {
+            width: 19px;
+            height: 19px;
+        }
+
+        .route-line small {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--panel-soft);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .1em;
+        }
+
+        .route-line strong {
+            display: block;
+            overflow: hidden;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 12px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .route-code {
+            padding: 6px 9px;
+            border-radius: 999px;
+            background: rgba(255, 107, 107, .12);
+            color: #ff8f8f;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 10px;
+            font-weight: 750;
+        }
+
+        .terminal {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-top: 18px;
+            padding: 14px 15px;
+            border-radius: 12px;
+            background: rgba(2, 11, 25, .65);
+            color: var(--panel-soft);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 11px;
+        }
+
+        .terminal b {
+            color: #4ed18a;
+        }
+
+        .cursor {
+            width: 7px;
+            height: 14px;
+            margin-left: 2px;
+            background: #4c9aff;
+            animation: blink 1s steps(1) infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 900px) {
+            main {
+                padding-top: 70px;
+            }
+
+            .error-grid {
+                grid-template-columns: 1fr;
+                gap: 64px;
+            }
+
+            .error-copy {
+                max-width: 690px;
+            }
+
+            .route-panel {
+                width: min(590px, 100%);
+                transform: none;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .container {
+                width: min(100% - 30px, 1180px);
+            }
+
+            header {
+                height: 70px;
+            }
+
+            .brand img {
+                width: 44px;
+                height: 44px;
+            }
+
+            .brand-copy small, .header-link, .theme-toggle > span:last-child {
+                display: none;
+            }
+
+            .header-actions {
+                gap: 0;
+            }
+
+            .theme-toggle {
+                min-width: auto;
+                padding-right: 7px;
+            }
+
+            main {
+                min-height: calc(100vh - 70px);
+                padding: 58px 0 68px;
+            }
+
+            .error-number {
+                margin-bottom: -7px;
+                font-size: 108px;
+            }
+
+            h1 {
+                font-size: 43px;
+            }
+
+            .lead {
+                font-size: 15px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .panel-body {
+                padding: 28px 18px 22px;
+            }
+
+            .route-line {
+                grid-template-columns: 40px minmax(0, 1fr);
+            }
+
+            .route-code {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+    <script>
+        (function () {
+            var saved = localStorage.getItem("diego-theme");
+            var preferred = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            document.documentElement.dataset.theme = saved === "dark" || saved === "light" ? saved : preferred;
+        }());
+    </script>
+</head>
+<body>
+<div class="page">
+    <div class="glow glow-left"></div>
+    <div class="glow glow-right"></div>
+
+    <header>
+        <div class="container header-inner">
+            <a class="brand" href="/" aria-label="Diego Ramos, página inicial">
+                <img src="assets/diego-ramos-mark.png" alt="Logo">
+                <span class="brand-copy">
+                    <strong>Diego Ramos</strong>
+                    <small>Os bastidores da EAD Suporte</small>
+                </span>
+            </a>
+
+            <div class="header-actions">
+                <a class="header-link" href="/artigos">Artigos</a>
+                <a class="header-link" href="/bastidores">Bastidores</a>
+                <button class="theme-toggle" type="button" aria-label="Alternar aparência">
+                    <span class="theme-icon" aria-hidden="true"></span>
+                    <span class="theme-label"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container error-grid">
+            <section class="error-copy" aria-labelledby="error-title">
+                <span class="eyebrow"><i></i>Rota não encontrada</span>
+                <div class="error-number" aria-hidden="true">404</div>
+                <h1 id="error-title">Essa página saiu do caminho</h1>
+                <p class="lead">O endereço pode ter mudado ou talvez o link tenha chegado incompleto, mas o restante do
+                    site continua no lugar e você pode voltar ao início ou seguir direto para os bastidores</p>
+                <div class="actions">
+                    <a class="button button-primary" href="/">
+                        Voltar para o início
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </a>
+                    <a class="button button-secondary" href="/bastidores">Ver os bastidores</a>
+                </div>
+            </section>
+
+            <aside class="route-panel" aria-label="Detalhes da rota não encontrada">
+                <div class="panel-top">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span>navegacao.log</span>
+                    <span class="panel-status"><i></i> interrompida</span>
+                </div>
+                <div class="panel-body">
+                    <span class="panel-label">ÚLTIMA TENTATIVA</span>
+                    <div class="route-line">
+              <span class="route-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path
+                        d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"
+                        stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+              </span>
+                        <span><small>ENDEREÇO SOLICITADO</small><strong
+                                id="requested-path">/pagina-nao-encontrada</strong></span>
+                        <span class="route-code">404</span>
+                    </div>
+                    <div class="terminal"><b>$</b> procurando um caminho conhecido <span class="cursor"
+                                                                                         aria-hidden="true"></span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+</div>
+
+<script>
+    (function () {
+        var root = document.documentElement;
+        var button = document.querySelector(".theme-toggle");
+        var icon = document.querySelector(".theme-icon");
+        var label = document.querySelector(".theme-label");
+        var path = document.querySelector("#requested-path");
+        var sun = '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>';
+        var moon = '<svg viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
+
+        function renderTheme() {
+            var dark = root.dataset.theme === "dark";
+            icon.innerHTML = dark ? sun : moon;
+            label.textContent = dark ? "Claro" : "Escuro";
+            button.setAttribute("aria-label", dark ? "Ativar modo claro" : "Ativar modo escuro");
+        }
+
+        button.addEventListener("click", function () {
+            root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+            localStorage.setItem("diego-theme", root.dataset.theme);
+            renderTheme();
+        });
+
+        path.textContent = location.pathname;
+        renderTheme();
+    }());
+</script>
+</body>
+</html>
