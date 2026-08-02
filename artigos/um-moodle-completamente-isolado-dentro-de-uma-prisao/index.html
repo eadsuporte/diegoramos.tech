@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../assets/index-C4VkhTZ7.css" data-rsc-css-href="/assets/index-C4VkhTZ7.css"
+          data-precedence="vite-rsc/importer-resources">
+    <link rel="modulepreload" href="../../assets/layout-segment-context-a5HxniUU.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/rolldown-runtime-S-ySWqyJ.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/index-JJj_vJKX.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/framework-CXnKph_e.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/article-client-BCJGUQ7N.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/articles-DD73iHLJ.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/site-chrome-CF6ubRkS.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/link-2HcM0TzN.js" crossorigin="">
+    <title>Um Moodle completamente isolado dentro de uma pris&atilde;o | Diego Ramos</title>
+    <meta name="description"
+          content="Como projetamos uma plataforma educacional sem internet, com controle r&iacute;gido sobre cada arquivo e uma opera&ccedil;&atilde;o que precisava continuar previs&iacute;vel mesmo quando nenhuma ajuda externa pudesse chegar.">
+
+
+    <meta name="codex-preview" content="development">
+    <script>self.__VINEXT_RSC_PARAMS__ = {"slug": "um-moodle-completamente-isolado-dentro-de-uma-prisao"}</script>
+    <script>self.__VINEXT_RSC_NAV__ = {
+        "pathname": "/artigos/um-moodle-completamente-isolado-dentro-de-uma-prisao",
+        "searchParams": []
+    }</script>
+    <link rel="modulepreload" href="../../assets/index-JJj_vJKX.js">
+    <link rel="preload" href="../../assets/fonts/geist-8ac0455e797f/geist-ff2310f5.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-8ac0455e797f/geist-875ccdd4.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-8ac0455e797f/geist-52306abf.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-8ac0455e797f/geist-001175b1.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-8ac0455e797f/geist-98bbbccb.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-f6b33328.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-44e03052.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-0638449e.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-971fb274.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-44745446.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-013b2f2f.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <style data-vinext-fonts>
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-8ac0455e797f/geist-ff2310f5.woff2") format('woff2');
+            unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+        }
+
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-8ac0455e797f/geist-875ccdd4.woff2") format('woff2');
+            unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-8ac0455e797f/geist-52306abf.woff2") format('woff2');
+            unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-8ac0455e797f/geist-001175b1.woff2") format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-8ac0455e797f/geist-98bbbccb.woff2") format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        .__font_geist_0tvmz3h {
+            font-family: 'Geist', sans-serif;
+        }
+
+        .__variable_geist_0tvmz3h {
+            --font-geist-sans: 'Geist', sans-serif;
+        }
+
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-f6b33328.woff2") format('woff2');
+            unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+        }
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-44e03052.woff2") format('woff2');
+            unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-0638449e.woff2") format('woff2');
+            unicode-range: U+2000-2001, U+2004-2008, U+200A, U+23B8-23BD, U+2500-259F;
+        }
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-971fb274.woff2") format('woff2');
+            unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-44745446.woff2") format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-013b2f2f.woff2") format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        .__font_geist_mono_1diim1n {
+            font-family: 'Geist Mono', sans-serif;
+        }
+
+        .__variable_geist_mono_1diim1n {
+            --font-geist-mono: 'Geist Mono', sans-serif;
+        }
+    </style>
+</head>
+<body class="__variable_geist_0tvmz3h __variable_geist_mono_1diim1n antialiased">
+<main>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="../../" class="brand"
+               aria-label="Diego Ramos, in&iacute;cio"><span class="brand-mark"><img alt="logo" src="../../assets/diego-ramos-mark.png"></span>
+                <span class="brand-copy"><strong>Diego Ramos</strong><small>Os bastidores da EAD Suporte</small></span></a>
+            <nav class="desktop-nav" aria-label="Navega&ccedil;&atilde;o principal">
+                <a href="../" class="nav-current">Artigos</a>
+                <a href="../../bastidores/">Bastidores</a>
+                <a href="../../#sobre">Sobre</a></nav>
+            <button aria-label="Ativar modo claro" class="theme-toggle" type="button"><span class="theme-icon"><svg
+                    aria-hidden="true" fill="none" height="18" viewbox="0 0 24 24" width="18"><g stroke="currentColor"
+                                                                                                 stroke-linecap="round"
+                                                                                                 stroke-linejoin="round"
+                                                                                                 stroke-width="1.8"><circle
+                    cx="12" cy="12" r="4"></circle><path
+                    d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></span>
+                <span>Claro</span>
+            </button>
+        </div>
+    </header>
+    <article class="story-page long-article-page">
+        <header class="story-hero article-hero">
+            <div class="story-hero-glow"></div>
+            <div class="container story-heading">
+                <a href="../" class="story-back">
+                    <svg aria-hidden="true" class="arrow-back" fill="none" height="17" viewbox="0 0 24 24" width="17">
+                        <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="1.8"></path>
+                    </svg>
+                    Todos os artigos</a>
+                <div class="story-meta"><span>Projetos especiais</span><i></i>
+                    <time datetime="2018-02-15">15 de fevereiro de 2018</time>
+                    <i></i><b>18<!-- --> min de leitura</b></div>
+                <h1>Um Moodle completamente isolado dentro de uma pris&atilde;o</h1>
+                <p>Como projetamos uma plataforma educacional sem internet, com controle r&iacute;gido sobre cada
+                    arquivo e uma opera&ccedil;&atilde;o que precisava continuar previs&iacute;vel mesmo quando nenhuma
+                    ajuda externa pudesse chegar.</p></div>
+        </header>
+        <div class="container story-layout long-article-layout">
+            <aside class="story-aside article-aside"><span class="story-year">2018</span>
+                <p>Um relato t&eacute;cnico completo sobre as decis&otilde;es, os testes e as descobertas que mudaram o
+                    caminho deste projeto.</p><span class="article-reading-time">Leitura aproximada<br><strong>18
+                    <!-- --> minutos</strong></span>
+                <a href="../">Ver todos os artigos
+                    <svg aria-hidden="true" class="" fill="none" height="17" viewbox="0 0 24 24" width="17">
+                        <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="1.8"></path>
+                    </svg>
+                </a></aside>
+            <div class="story-body long-article-body">
+                <div class="story-opening-mark">DR</div>
+                <section class="long-article-section"><h2>Antes de pensar no servidor</h2>
+                    <p>Quando come&ccedil;amos a conversar sobre uma plataforma de ensino dentro de uma unidade
+                        prisional, a primeira vontade era discutir servidor, banco de dados, espa&ccedil;o em disco e
+                        vers&atilde;o do Software Moodle&trade;, mas logo ficou claro que a parte mais importante vinha
+                        antes de qualquer escolha t&eacute;cnica, porque o laborat&oacute;rio n&atilde;o teria internet,
+                        os estudantes n&atilde;o poderiam usar dispositivos pr&oacute;prios, o tr&acirc;nsito de
+                        arquivos dependeria de procedimentos formais, os professores trabalhariam parte do tempo fora da
+                        unidade e toda movimenta&ccedil;&atilde;o de conte&uacute;do precisaria ser compreendida por uma
+                        equipe que n&atilde;o vivia o dia inteiro administrando sistemas, ent&atilde;o passamos os
+                        primeiros encontros levantando quem acessaria cada &aacute;rea, como os alunos seriam
+                        identificados, quem poderia criar uma conta, como uma nova disciplina chegaria ao ambiente, o
+                        que aconteceria quando um professor corrigisse uma atividade e de que maneira os registros
+                        poderiam ser consultados sem abrir uma passagem indevida entre a rede interna e o restante do
+                        mundo.</p>
+                    <p>Esse levantamento mudou o desenho do projeto, pois um Software Moodle&trade; convencional costuma
+                        depender de elementos que quase ningu&eacute;m percebe enquanto a internet est&aacute; dispon&iacute;vel,
+                        como fontes carregadas de outro dom&iacute;nio, v&iacute;deos incorporados, bibliotecas de
+                        JavaScript, servi&ccedil;os de mapas, reposit&oacute;rios de arquivos, links em materiais
+                        antigos, atualiza&ccedil;&otilde;es de plugins, envio de mensagens e consultas ocasionais a
+                        APIs, por isso montamos um laborat&oacute;rio de teste com a conex&atilde;o bloqueada desde o
+                        roteador e come&ccedil;amos pelo caminho mais simples de um aluno, entrando no curso, abrindo
+                        textos, assistindo a v&iacute;deos, respondendo question&aacute;rios e enviando atividades,
+                        depois repetimos a navega&ccedil;&atilde;o como professor, coordenador e administrador, enquanto
+                        registr&aacute;vamos cada tela incompleta, cada espera desnecess&aacute;ria e cada chamada que
+                        ainda tentava alcan&ccedil;ar um endere&ccedil;o externo.</p>
+                    <p>O teste mostrou que estar sem internet era bem diferente de simplesmente desconectar um cabo,
+                        porque algumas p&aacute;ginas abriam rapidamente e outras pareciam travadas durante v&aacute;rios
+                        segundos antes de continuar, certos &iacute;cones desapareciam, v&iacute;deos exibiam apenas uma
+                        &aacute;rea vazia, links de apoio levavam a um erro pouco compreens&iacute;vel e at&eacute;
+                        conte&uacute;dos aparentemente locais continham imagens copiadas de p&aacute;ginas externas, ent&atilde;o
+                        criamos um invent&aacute;rio que relacionava a origem de cada recurso, o curso em que aparecia,
+                        o comportamento quando ficava indispon&iacute;vel e a a&ccedil;&atilde;o necess&aacute;ria para
+                        torn&aacute; lo local, trabalho que deu uma dimens&atilde;o muito mais realista ao projeto e
+                        impediu que a implanta&ccedil;&atilde;o fosse baseada apenas na confian&ccedil;a de que o pacote
+                        do curso estava completo.</p></section>
+                <section class="long-article-section"><h2>Uma plataforma que precisava bastar a si mesma</h2>
+                    <p>Com as depend&ecirc;ncias conhecidas, organizamos a arquitetura para que aplica&ccedil;&atilde;o,
+                        banco de dados, arquivos, cache, servi&ccedil;os de hor&aacute;rio, c&oacute;pias de seguran&ccedil;a
+                        e ferramentas de acompanhamento existissem dentro do ambiente autorizado, evitando componentes
+                        que exigissem valida&ccedil;&otilde;es frequentes fora da unidade e separando o que era
+                        essencial do que apenas deixava a administra&ccedil;&atilde;o mais confort&aacute;vel, porque em
+                        um ambiente isolado uma integra&ccedil;&atilde;o desnecess&aacute;ria vira mais um ponto de
+                        falha e uma atualiza&ccedil;&atilde;o autom&aacute;tica, que normalmente seria recebida como
+                        facilidade, pode se transformar em uma mudan&ccedil;a sem registro e sem possibilidade de
+                        retorno r&aacute;pido, por isso definimos vers&otilde;es controladas para o sistema operacional,
+                        o Software Moodle&trade;, os plugins e os conte&uacute;dos, juntamente com um procedimento para
+                        reproduzir a instala&ccedil;&atilde;o em outro equipamento caso o servidor principal precisasse
+                        ser substitu&iacute;do.</p>
+                    <p>Tamb&eacute;m revimos a autentica&ccedil;&atilde;o e a identifica&ccedil;&atilde;o dos
+                        estudantes, j&aacute; que n&atilde;o faria sentido depender de email para ativar conta ou
+                        recuperar senha, ent&atilde;o o cadastro passou a seguir dados entregues pela equipe respons&aacute;vel,
+                        com nomes de usu&aacute;rio previs&iacute;veis apenas para a administra&ccedil;&atilde;o, senhas
+                        iniciais geradas de forma controlada, troca acompanhada no primeiro acesso e registros
+                        suficientes para distinguir uma corre&ccedil;&atilde;o leg&iacute;tima de uma tentativa de
+                        compartilhar credenciais, enquanto os professores receberam permiss&otilde;es compat&iacute;veis
+                        com o trabalho pedag&oacute;gico sem acesso a configura&ccedil;&otilde;es que pudessem alterar a
+                        seguran&ccedil;a do ambiente, uma decis&atilde;o menos vistosa do que a instala&ccedil;&atilde;o
+                        de um novo recurso, por&eacute;m muito mais importante para evitar que uma necessidade simples
+                        terminasse em contas gen&eacute;ricas usadas por v&aacute;rias pessoas.</p>
+                    <p>A entrada de conte&uacute;do ganhou um processo pr&oacute;prio, no qual o material era preparado
+                        fora da unidade, reunido em um pacote, verificado, copiado para uma m&iacute;dia autorizada e
+                        importado somente depois de uma nova confer&ecirc;ncia, com manifesto contendo os arquivos
+                        esperados, tamanho, hash e identifica&ccedil;&atilde;o da vers&atilde;o, dessa maneira consegu&iacute;amos
+                        perceber se algo havia sido alterado durante o transporte, repetir uma importa&ccedil;&atilde;o
+                        sem adivinhar o que estava dentro do pacote e manter um hist&oacute;rico de tudo que entrou no
+                        ambiente, enquanto a sa&iacute;da seguia a mesma l&oacute;gica para notas, conclus&otilde;es e
+                        relat&oacute;rios permitidos, sempre separando dados pedag&oacute;gicos necess&aacute;rios de
+                        informa&ccedil;&otilde;es que n&atilde;o deveriam circular.</p></section>
+                <section class="long-article-section"><h2>Conte&uacute;do local de verdade</h2>
+                    <p>O trabalho mais demorado apareceu nos cursos, pois n&atilde;o bastava fazer uma c&oacute;pia do v&iacute;deo
+                        que estava na internet e trocar o endere&ccedil;o, era preciso conferir formato, resolu&ccedil;&atilde;o,
+                        tamanho, compatibilidade com os computadores dispon&iacute;veis, legenda, navega&ccedil;&atilde;o
+                        pelo teclado e comportamento depois de uma pausa ou reinicializa&ccedil;&atilde;o, al&eacute;m
+                        de revisar documentos, imagens, objetos interativos e bancos de quest&otilde;es que &agrave;s
+                        vezes carregavam recursos invis&iacute;veis de outros sites, por isso criamos uma rotina de
+                        varredura para identificar endere&ccedil;os externos no HTML e nos arquivos de configura&ccedil;&atilde;o,
+                        mas mantivemos a revis&atilde;o humana porque uma busca autom&aacute;tica encontra uma URL e
+                        ainda assim n&atilde;o entende se ela &eacute; indispens&aacute;vel para a aprendizagem, uma
+                        refer&ecirc;ncia bibliogr&aacute;fica que pode permanecer como texto ou uma incorpora&ccedil;&atilde;o
+                        que precisa ser substitu&iacute;da.</p>
+                    <p>Cada curso aprovado passou por uma navega&ccedil;&atilde;o completa em uma rede sem sa&iacute;da,
+                        primeiro com as ferramentas de inspe&ccedil;&atilde;o abertas para observar chamadas bloqueadas
+                        e depois em computadores equivalentes aos usados pelos estudantes, porque uma atividade que
+                        funcionava na m&aacute;quina de desenvolvimento podia consumir mem&oacute;ria demais, exigir um
+                        formato de v&iacute;deo inexistente ou apresentar controles pequenos para a resolu&ccedil;&atilde;o
+                        do laborat&oacute;rio, ent&atilde;o registr&aacute;vamos o tempo de abertura das p&aacute;ginas
+                        principais, o uso de armazenamento, a reprodu&ccedil;&atilde;o dos materiais, o envio de
+                        respostas, a grava&ccedil;&atilde;o das tentativas e a gera&ccedil;&atilde;o de relat&oacute;rios,
+                        corrigindo o pacote antes que ele fosse considerado pronto para entrar na unidade.</p></section>
+                <section class="long-article-section"><h2>Testar o dia ruim antes que ele acontecesse</h2>
+                    <p>Depois que os cursos funcionaram, come&ccedil;amos a provocar falhas que poderiam ocorrer durante
+                        a opera&ccedil;&atilde;o, desligamos o servidor sem o encerramento ideal, interrompemos uma c&oacute;pia
+                        de seguran&ccedil;a, simulamos falta de espa&ccedil;o, restauramos o ambiente em outro
+                        equipamento e verificamos o que acontecia com uma tentativa de question&aacute;rio aberta
+                        durante uma reinicializa&ccedil;&atilde;o, pois a seguran&ccedil;a do projeto tamb&eacute;m
+                        dependia de saber como recuperar o servi&ccedil;o sem recorrer a uma pesquisa na internet ou
+                        aguardar algu&eacute;m de fora, ent&atilde;o o procedimento de recupera&ccedil;&atilde;o foi
+                        escrito enquanto era executado, com nomes reais de telas, tempos medidos e verifica&ccedil;&otilde;es
+                        simples que a equipe local conseguia repetir.</p>
+                    <p>A implanta&ccedil;&atilde;o come&ccedil;ou com um grupo menor e acompanhamento pr&oacute;ximo,
+                        per&iacute;odo em que observamos n&atilde;o apenas os erros do sistema, mas tamb&eacute;m as d&uacute;vidas
+                        produzidas pelo fluxo, como alunos que n&atilde;o entendiam se um arquivo havia sido enviado,
+                        professores que aguardavam uma notifica&ccedil;&atilde;o por email que nunca faria parte daquele
+                        ambiente e operadores que precisavam distinguir um curso ainda em prepara&ccedil;&atilde;o de
+                        outro j&aacute; liberado, assim ajustamos mensagens, simplificamos p&aacute;ginas, retiramos
+                        blocos sem utilidade e criamos relat&oacute;rios que respondiam &agrave;s perguntas do cotidiano
+                        sem obrigar ningu&eacute;m a consultar diretamente o banco de dados.</p>
+                    <p>Quando a opera&ccedil;&atilde;o ficou est&aacute;vel surgiu um problema que o projeto inicial n&atilde;o
+                        resolveria sozinho, porque cada novo curso poderia trazer novamente fontes externas, v&iacute;deos
+                        incorporados ou scripts remotos, ent&atilde;o a valida&ccedil;&atilde;o deixou de ser uma tarefa
+                        feita apenas na implanta&ccedil;&atilde;o e passou a acompanhar toda publica&ccedil;&atilde;o,
+                        bloqueando o que fosse claramente incompat&iacute;vel e apontando para revis&atilde;o os casos
+                        duvidosos, depois veio outra descoberta mais silenciosa, o rel&oacute;gio do servidor se
+                        afastava gradualmente do hor&aacute;rio correto por n&atilde;o consultar uma refer&ecirc;ncia
+                        externa e essa diferen&ccedil;a come&ccedil;ava a afetar prazos, tentativas, tarefas agendadas e
+                        certificados, o que nos levou a estabelecer uma refer&ecirc;ncia interna de hor&aacute;rio e uma
+                        verifica&ccedil;&atilde;o peri&oacute;dica que mostrava o desvio antes que ele se tornasse um
+                        problema pedag&oacute;gico.</p></section>
+                <div class="article-conclusion"><span>O que ficou deste projeto</span>
+                    <p>O ambiente isolado funcionou porque tratamos a falta de internet como uma caracter&iacute;stica
+                        permanente da arquitetura e n&atilde;o como uma indisponibilidade tempor&aacute;ria, deixando
+                        cada depend&ecirc;ncia vis&iacute;vel, cada entrada rastre&aacute;vel e cada procedimento poss&iacute;vel
+                        de ser repetido pela equipe que realmente ficaria com a plataforma.</p></div>
+            </div>
+        </div>
+        <nav class="container story-navigation" aria-label="Outros artigos"><span></span>
+            <a class="story-nav-card next"
+               href="../o-moodle-que-atravessava-o-oceano-dentro-de-um-navio/"><small>Pr&oacute;ximo
+                artigo
+                <svg aria-hidden="true" class="" fill="none" height="17" viewbox="0 0 24 24" width="17">
+                    <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="1.8"></path>
+                </svg>
+            </small><strong>O Moodle que atravessava o oceano dentro de um navio</strong></a></nav>
+    </article>
+    <footer class="site-footer story-footer">
+        <div class="container footer-inner">
+            <a href="../../" class="brand footer-brand"><span class="brand-mark"><img alt="logo" src="../../assets/diego-ramos-mark.png"></span>
+                <span class="brand-copy"><strong>Diego Ramos</strong><small>Os bastidores da EAD Suporte</small></span></a>
+            <p>Projetos reais, aprendizados compartilhados.</p>
+            <div class="footer-links">
+                <a href="../">Artigos</a>
+                <a href="../../bastidores/">Bastidores</a>
+                <a href="https://www.linkedin.com/in/diegoramostech/" target="_blank" rel="noreferrer">LinkedIn</a>
+                <a href="https://wa.me/61493536147" target="_blank" rel="noreferrer">WhatsApp</a></div>
+        </div>
+    </footer>
+</main>
+<script id="_R_">import("/assets/index-JJj_vJKX.js")</script>
+<script>(function () {
+    function c() {
+        var b = a.contentDocument || (a.contentWindow && a.contentWindow.document);
+        if (b) {
+            var d = b.createElement('script');
+            d.innerHTML = "window.__CF$cv$params={r:'a24fbc501bb4a164',t:'MTc4NTcwMTUyNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName('head')[0].appendChild(d)
+        }
+    }
+
+    if (document.body) {
+        var a = document.createElement('iframe');
+        a.height = 1;
+        a.width = 1;
+        a.style.position = 'absolute';
+        a.style.top = 0;
+        a.style.left = 0;
+        a.style.border = 'none';
+        a.style.visibility = 'hidden';
+        document.body.appendChild(a);
+        if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else {
+            var e = document.onreadystatechange || function () {
+            };
+            document.onreadystatechange = function (b) {
+                e(b);
+                'loading' !== document.readyState && (document.onreadystatechange = e, c())
+            }
+        }
+    }
+})();</script>
+</body>
+</html>
+<script>self.__VINEXT_RSC_CHUNKS__ = self.__VINEXT_RSC_CHUNKS__ || [];
+self.__VINEXT_RSC_CHUNKS__.push("2:I[\"8c0f216c4604\",[],\"Children\",1]\n3:I[\"15c18cfaeeff\",[],\"LayoutSegmentProvider\",1]\n4:I[\"8c0f216c4604\",[],\"Slot\",1]\n5:I[\"593f344dc510\",[],\"RedirectBoundary\",1]\n:HL[\"/assets/index-C4VkhTZ7.css\",\"style\"]\n")</script>
+<script>self.__VINEXT_RSC_CHUNKS__ = self.__VINEXT_RSC_CHUNKS__ || [];
+self.__VINEXT_RSC_CHUNKS__.push("0:{\"__route\":\"route:/artigos/um-moodle-completamente-isolado-dentro-de-uma-prisao\",\"__interceptionContext\":null,\"__layoutIds\":[\"layout:/\"],\"__rootLayout\":\"/\",\"page:/artigos/um-moodle-completamente-isolado-dentro-de-uma-prisao\":\"$L1\",\"layout:/\":[[[[\"$\",\"link\",\"css:/assets/index-C4VkhTZ7.css\",{\"rel\":\"stylesheet\",\"precedence\":\"vite-rsc/importer-resources\",\"href\":\"/assets/index-C4VkhTZ7.css\",\"data-rsc-css-href\":\"/assets/index-C4VkhTZ7.css\"}],\"$undefined\"],[\"$\",\"html\",null,{\"lang\":\"pt-BR\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"__variable_geist_0tvmz3h __variable_geist_mono_1diim1n antialiased\",\"children\":[\"$\",\"$L2\",null,{}]}]}]],null],\"route:/artigos/um-moodle-completamente-isolado-dentro-de-uma-prisao\":[[[\"$\",\"meta\",null,{\"charSet\":\"utf-8\"}],[[\"$\",\"title\",\"0\",{\"children\":\"Um Moodle completamente isolado dentro de uma pris&atilde;o | Diego Ramos\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Como projetamos uma plataforma educacional sem internet, com controle r&iacute;gido sobre cada arquivo e uma opera&ccedil;&atilde;o que precisava continuar previs&iacute;vel mesmo quando nenhuma ajuda externa pudesse chegar.\"}],[\"$\",\"link\",\"2\"],[\"$\",\"link\",\"3\"],[\"$\",\"meta\",\"4\"]],[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]],[\"$\",\"$L3\",null,{\"segmentMap\":{\"children\":[\"artigos\",\"um-moodle-completamente-isolado-dentro-de-uma-prisao\"]},\"children\":[\"$\",\"$L4\",null,{\"id\":\"layout:/\",\"parallelSlots\":\"$undefined\",\"children\":[\"$\",\"$L5\",null,{\"children\":[\"$\",\"$L3\",null,{\"segmentMap\":{\"children\":[]},\"children\":[\"$\",\"$L4\",null,{\"id\":\"page:/artigos/um-moodle-completamente-isolado-dentro-de-uma-prisao\"}]}]}]}]}]],\"__layoutFlags\":{\"layout:/\":\"s\"},\"__artifactCompatibility\":{\"schemaVersion\":1,\"graphVersion\":\"app-route-graph:1z0a2tk1cg09wo\",\"deploymentVersion\":\"61cac416-4091-4a59-a4d7-d2cac849a132\",\"appElementsSchemaVersion\":1,\"rscPayloadSchemaVersion\":1,\"rootBoundaryId\":\"/\",\"renderEpoch\":null}}\n6:I[\"3a083d5cc219\",[],\"LongArticleClient\",1]\n")</script>
+<script>self.__VINEXT_RSC_CHUNKS__ = self.__VINEXT_RSC_CHUNKS__ || [];
+self.__VINEXT_RSC_CHUNKS__.push("1:[\"$\",\"$L6\",null,{\"article\":{\"slug\":\"um-moodle-completamente-isolado-dentro-de-uma-prisao\",\"date\":\"2018-02-15\",\"title\":\"Um Moodle completamente isolado dentro de uma pris&atilde;o\",\"category\":\"Projetos especiais\",\"summary\":\"Como projetamos uma plataforma educacional sem internet, com controle r&iacute;gido sobre cada arquivo e uma opera&ccedil;&atilde;o que precisava continuar previs&iacute;vel mesmo quando nenhuma ajuda externa pudesse chegar.\",\"readingMinutes\":18,\"sections\":[{\"title\":\"Antes de pensar no servidor\",\"paragraphs\":[\"Quando come&ccedil;amos a conversar sobre uma plataforma de ensino dentro de uma unidade prisional, a primeira vontade era discutir servidor, banco de dados, espa&ccedil;o em disco e vers&atilde;o do Software Moodle&trade;, mas logo ficou claro que a parte mais importante vinha antes de qualquer escolha t&eacute;cnica, porque o laborat&oacute;rio n&atilde;o teria internet, os estudantes n&atilde;o poderiam usar dispositivos pr&oacute;prios, o tr&acirc;nsito de arquivos dependeria de procedimentos formais, os professores trabalhariam parte do tempo fora da unidade e toda movimenta&ccedil;&atilde;o de conte&uacute;do precisaria ser compreendida por uma equipe que n&atilde;o vivia o dia inteiro administrando sistemas, ent&atilde;o passamos os primeiros encontros levantando quem acessaria cada &aacute;rea, como os alunos seriam identificados, quem poderia criar uma conta, como uma nova disciplina chegaria ao ambiente, o que aconteceria quando um professor corrigisse uma atividade e de que maneira os registros poderiam ser consultados sem abrir uma passagem indevida entre a rede interna e o restante do mundo.\",\"Esse levantamento mudou o desenho do projeto, pois um Software Moodle&trade; convencional costuma depender de elementos que quase ningu&eacute;m percebe enquanto a internet est&aacute; dispon&iacute;vel, como fontes carregadas de outro dom&iacute;nio, v&iacute;deos incorporados, bibliotecas de JavaScript, servi&ccedil;os de mapas, reposit&oacute;rios de arquivos, links em materiais antigos, atualiza&ccedil;&otilde;es de plugins, envio de mensagens e consultas ocasionais a APIs, por isso montamos um laborat&oacute;rio de teste com a conex&atilde;o bloqueada desde o roteador e come&ccedil;amos pelo caminho mais simples de um aluno, entrando no curso, abrindo textos, assistindo a v&iacute;deos, respondendo question&aacute;rios e enviando atividades, depois repetimos a navega&ccedil;&atilde;o como professor, coordenador e administrador, enquanto registr&aacute;vamos cada tela incompleta, cada espera desnecess&aacute;ria e cada chamada que ainda tentava alcan&ccedil;ar um endere&ccedil;o externo.\",\"O teste mostrou que estar sem internet era bem diferente de simplesmente desconectar um cabo, porque algumas p&aacute;ginas abriam rapidamente e outras pareciam travadas durante v&aacute;rios segundos antes de continuar, certos &iacute;cones desapareciam, v&iacute;deos exibiam apenas uma &aacute;rea vazia, links de apoio levavam a um erro pouco compreens&iacute;vel e at&eacute; conte&uacute;dos aparentemente locais continham imagens copiadas de p&aacute;ginas externas, ent&atilde;o criamos um invent&aacute;rio que relacionava a origem de cada recurso, o curso em que aparecia, o comportamento quando ficava indispon&iacute;vel e a a&ccedil;&atilde;o necess&aacute;ria para torn&aacute; lo local, trabalho que deu uma dimens&atilde;o muito mais realista ao projeto e impediu que a implanta&ccedil;&atilde;o fosse baseada apenas na confian&ccedil;a de que o pacote do curso estava completo.\"]},{\"title\":\"Uma plataforma que precisava bastar a si mesma\",\"paragraphs\":[\"Com as depend&ecirc;ncias conhecidas, organizamos a arquitetura para que aplica&ccedil;&atilde;o, banco de dados, arquivos, cache, servi&ccedil;os de hor&aacute;rio, c&oacute;pias de seguran&ccedil;a e ferramentas de acompanhamento existissem dentro do ambiente autorizado, evitando componentes que exigissem valida&ccedil;&otilde;es frequentes fora da unidade e separando o que era essencial do que apenas deixava a administra&ccedil;&atilde;o mais confort&aacute;vel, porque em um ambiente isolado uma integra&ccedil;&atilde;o desnecess&aacute;ria vira mais um ponto de falha e uma atualiza&ccedil;&atilde;o autom&aacute;tica, que normalmente seria recebida como facilidade, pode se transformar em uma mudan&ccedil;a sem registro e sem possibilidade de retorno r&aacute;pido, por isso definimos vers&otilde;es controladas para o sistema operacional, o Software Moodle&trade;, os plugins e os conte&uacute;dos, juntamente com um procedimento para reproduzir a instala&ccedil;&atilde;o em outro equipamento caso o servidor principal precisasse ser substitu&iacute;do.\",\"Tamb&eacute;m revimos a autentica&ccedil;&atilde;o e a identifica&ccedil;&atilde;o dos estudantes, j&aacute; que n&atilde;o faria sentido depender de email para ativar conta ou recuperar senha, ent&atilde;o o cadastro passou a seguir dados entregues pela equipe respons&aacute;vel, com nomes de usu&aacute;rio previs&iacute;veis apenas para a administra&ccedil;&atilde;o, senhas iniciais geradas de forma controlada, troca acompanhada no primeiro acesso e registros suficientes para distinguir uma corre&ccedil;&atilde;o leg&iacute;tima de uma tentativa de compartilhar credenciais, enquanto os professores receberam permiss&otilde;es compat&iacute;veis com o trabalho pedag&oacute;gico sem acesso a configura&ccedil;&otilde;es que pudessem alterar a seguran&ccedil;a do ambiente, uma decis&atilde;o menos vistosa do que a instala&ccedil;&atilde;o de um novo recurso, por&eacute;m muito mais importante para evitar que uma necessidade simples terminasse em contas gen&eacute;ricas usadas por v&aacute;rias pessoas.\",\"A entrada de conte&uacute;do ganhou um processo pr&oacute;prio, no qual o material era preparado fora da unidade, reunido em um pacote, verificado, copiado para uma m&iacute;dia autorizada e importado somente depois de uma nova confer&ecirc;ncia, com manifesto contendo os arquivos esperados, tamanho, hash e identifica&ccedil;&atilde;o da vers&atilde;o, dessa maneira consegu&iacute;amos perceber se algo havia sido alterado durante o transporte, repetir uma importa&ccedil;&atilde;o sem adivinhar o que estava dentro do pacote e manter um hist&oacute;rico de tudo que entrou no ambiente, enquanto a sa&iacute;da seguia a mesma l&oacute;gica para notas, conclus&otilde;es e relat&oacute;rios permitidos, sempre separando dados pedag&oacute;gicos necess&aacute;rios de informa&ccedil;&otilde;es que n&atilde;o deveriam circular.\"]},{\"title\":\"Conte&uacute;do local de verdade\",\"paragraphs\":[\"O trabalho mais demorado apareceu nos cursos, pois n&atilde;o bastava fazer uma c&oacute;pia do v&iacute;deo que estava na internet e trocar o endere&ccedil;o, era preciso conferir formato, resolu&ccedil;&atilde;o, tamanho, compatibilidade com os computadores dispon&iacute;veis, legenda, navega&ccedil;&atilde;o pelo teclado e comportamento depois de uma pausa ou reinicializa&ccedil;&atilde;o, al&eacute;m de revisar documentos, imagens, objetos interativos e bancos de quest&otilde;es que &agrave;s vezes carregavam recursos invis&iacute;veis de outros sites, por isso criamos uma rotina de varredura para identificar endere&ccedil;os externos no HTML e nos arquivos de configura&ccedil;&atilde;o, mas mantivemos a revis&atilde;o humana porque uma busca autom&aacute;tica encontra uma URL e ainda assim n&atilde;o entende se ela &eacute; indispens&aacute;vel para a aprendizagem, uma refer&ecirc;ncia bibliogr&aacute;fica que pode permanecer como texto ou uma incorpora&ccedil;&atilde;o que precisa ser substitu&iacute;da.\",\"Cada curso aprovado passou por uma navega&ccedil;&atilde;o completa em uma rede sem sa&iacute;da, primeiro com as ferramentas de inspe&ccedil;&atilde;o abertas para observar chamadas bloqueadas e depois em computadores equivalentes aos usados pelos estudantes, porque uma atividade que funcionava na m&aacute;quina de desenvolvimento podia consumir mem&oacute;ria demais, exigir um formato de v&iacute;deo inexistente ou apresentar controles pequenos para a resolu&ccedil;&atilde;o do laborat&oacute;rio, ent&atilde;o registr&aacute;vamos o tempo de abertura das p&aacute;ginas principais, o uso de armazenamento, a reprodu&ccedil;&atilde;o dos materiais, o envio de respostas, a grava&ccedil;&atilde;o das tentativas e a gera&ccedil;&atilde;o de relat&oacute;rios, corrigindo o pacote antes que ele fosse considerado pronto para entrar na unidade.\"]},{\"title\":\"Testar o dia ruim antes que ele acontecesse\",\"paragraphs\":[\"Depois que os cursos funcionaram, come&ccedil;amos a provocar falhas que poderiam ocorrer durante a opera&ccedil;&atilde;o, desligamos o servidor sem o encerramento ideal, interrompemos uma c&oacute;pia de seguran&ccedil;a, simulamos falta de espa&ccedil;o, restauramos o ambiente em outro equipamento e verificamos o que acontecia com uma tentativa de question&aacute;rio aberta durante uma reinicializa&ccedil;&atilde;o, pois a seguran&ccedil;a do projeto tamb&eacute;m dependia de saber como recuperar o servi&ccedil;o sem recorrer a uma pesquisa na internet ou aguardar algu&eacute;m de fora, ent&atilde;o o procedimento de recupera&ccedil;&atilde;o foi escrito enquanto era executado, com nomes reais de telas, tempos medidos e verifica&ccedil;&otilde;es simples que a equipe local conseguia repetir.\",\"A implanta&ccedil;&atilde;o come&ccedil;ou com um grupo menor e acompanhamento pr&oacute;ximo, per&iacute;odo em que observamos n&atilde;o apenas os erros do sistema, mas tamb&eacute;m as d&uacute;vidas produzidas pelo fluxo, como alunos que n&atilde;o entendiam se um arquivo havia sido enviado, professores que aguardavam uma notifica&ccedil;&atilde;o por email que nunca faria parte daquele ambiente e operadores que precisavam distinguir um curso ainda em prepara&ccedil;&atilde;o de outro j&aacute; liberado, assim ajustamos mensagens, simplificamos p&aacute;ginas, retiramos blocos sem utilidade e criamos relat&oacute;rios que respondiam &agrave;s perguntas do cotidiano sem obrigar ningu&eacute;m a consultar diretamente o banco de dados.\",\"Quando a opera&ccedil;&atilde;o ficou est&aacute;vel surgiu um problema que o projeto inicial n&atilde;o resolveria sozinho, porque cada novo curso poderia trazer novamente fontes externas, v&iacute;deos incorporados ou scripts remotos, ent&atilde;o a valida&ccedil;&atilde;o deixou de ser uma tarefa feita apenas na implanta&ccedil;&atilde;o e passou a acompanhar toda publica&ccedil;&atilde;o, bloqueando o que fosse claramente incompat&iacute;vel e apontando para revis&atilde;o os casos duvidosos, depois veio outra descoberta mais silenciosa, o rel&oacute;gio do servidor se afastava gradualmente do hor&aacute;rio correto por n&atilde;o consultar uma refer&ecirc;ncia externa e essa diferen&ccedil;a come&ccedil;ava a afetar prazos, tentativas, tarefas agendadas e certificados, o que nos levou a estabelecer uma refer&ecirc;ncia interna de hor&aacute;rio e uma verifica&ccedil;&atilde;o peri&oacute;dica que mostrava o desvio antes que ele se tornasse um problema pedag&oacute;gico.\"]}],\"closing\":\"O ambiente isolado funcionou porque tratamos a falta de internet como uma caracter&iacute;stica permanente da arquitetura e n&atilde;o como uma indisponibilidade tempor&aacute;ria, deixando cada depend&ecirc;ncia vis&iacute;vel, cada entrada rastre&aacute;vel e cada procedimento poss&iacute;vel de ser repetido pela equipe que realmente ficaria com a plataforma.\"},\"next\":{\"slug\":\"o-moodle-que-atravessava-o-oceano-dentro-de-um-navio\",\"date\":\"2019-02-18\",\"title\":\"O Moodle que atravessava o oceano dentro de um navio\",\"category\":\"Sincroniza&ccedil;&atilde;o offline\",\"summary\":\"Uma instala&ccedil;&atilde;o local em cada embarca&ccedil;&atilde;o, uma plataforma em terra e uma sincroniza&ccedil;&atilde;o capaz de sobreviver a dias sem conex&atilde;o, muita lat&ecirc;ncia e v&aacute;rias tentativas de envio.\",\"readingMinutes\":19,\"sections\":[{\"title\":\"A conex&atilde;o existia, mas n&atilde;o podia ser tratada como certa\",\"paragraphs\":[\"Treinar uma equipe embarcada parecia, de in&iacute;cio, um caso comum de acesso remoto ao Software Moodle&trade;, at&eacute; colocarmos na mesa o custo do sat&eacute;lite, a lat&ecirc;ncia, as &aacute;reas sem cobertura, a dura&ccedil;&atilde;o das viagens e a quantidade de pessoas dividindo a mesma conex&atilde;o, pois uma p&aacute;gina que abria em poucos segundos no escrit&oacute;rio podia chegar incompleta no navio, um v&iacute;deo interrompido recome&ccedil;ava do in&iacute;cio e uma avalia&ccedil;&atilde;o enviada no instante de uma queda deixava o aluno sem saber se a resposta havia sido gravada, ent&atilde;o antes de propor qualquer arquitetura acompanhamos diferentes per&iacute;odos de navega&ccedil;&atilde;o, medimos tempos de resposta, registramos interrup&ccedil;&otilde;es e conversamos com quem estudava a bordo para entender em que hor&aacute;rios a conex&atilde;o melhorava e quais atividades eram abandonadas primeiro quando o acesso ficava inst&aacute;vel.\",\"Os testes com limita&ccedil;&atilde;o artificial de banda ajudaram, mas n&atilde;o reproduziram toda a realidade, porque o problema n&atilde;o era somente velocidade baixa, havia perda de pacotes, mudan&ccedil;as bruscas de lat&ecirc;ncia, intervalos longos sem qualquer comunica&ccedil;&atilde;o e reconex&otilde;es que duravam poucos minutos, suficientes para iniciar uma transfer&ecirc;ncia e curtas demais para conclu&iacute; la, por isso repetimos login, abertura de curso, reprodu&ccedil;&atilde;o de m&iacute;dia, tentativa de question&aacute;rio e envio de arquivo em v&aacute;rios cen&aacute;rios, desligando a rede em momentos diferentes e observando quais a&ccedil;&otilde;es se recuperavam sozinhas, quais ficavam em estado indefinido e quais poderiam duplicar informa&ccedil;&otilde;es quando o usu&aacute;rio tentava novamente.\",\"A conclus&atilde;o foi direta, o estudo precisava acontecer em uma instala&ccedil;&atilde;o local dentro de cada embarca&ccedil;&atilde;o, com p&aacute;ginas e m&iacute;dias dispon&iacute;veis na rede interna e resposta imediata para os alunos, enquanto uma plataforma central em terra cuidaria da distribui&ccedil;&atilde;o dos cursos e da consolida&ccedil;&atilde;o dos resultados, decis&atilde;o que transferia a complexidade da sala de aula para a sincroniza&ccedil;&atilde;o, um lugar mais adequado porque uma fila pode esperar pela pr&oacute;xima janela de conex&atilde;o, mas um estudante diante de uma avalia&ccedil;&atilde;o n&atilde;o deveria depender da qualidade do sat&eacute;lite naquele minuto.\"]},{\"title\":\"Dois ambientes sem duas verdades\",\"paragraphs\":[\"Ter uma plataforma no navio e outra em terra criava uma pergunta dif&iacute;cil, qual delas seria a fonte correta quando uma matr&iacute;cula mudasse, um curso fosse atualizado e uma tentativa j&aacute; estivesse acontecendo a bordo, ent&atilde;o definimos a responsabilidade de cada informa&ccedil;&atilde;o antes de escrever o mecanismo de transfer&ecirc;ncia, deixando matr&iacute;culas, vers&otilde;es de cursos e regras de oferta sob controle da central, enquanto tentativas, notas, conclus&otilde;es e registros produzidos durante a viagem nasciam no ambiente local e seguiam para consolida&ccedil;&atilde;o, com exce&ccedil;&otilde;es tratadas explicitamente para que uma altera&ccedil;&atilde;o feita em terra n&atilde;o apagasse o que j&aacute; havia sido realizado no navio.\",\"Cada evento recebeu um identificador &uacute;nico criado na origem, juntamente com hor&aacute;rio local, refer&ecirc;ncia de usu&aacute;rio, curso, atividade, vers&atilde;o do conte&uacute;do e situa&ccedil;&atilde;o da transmiss&atilde;o, assim o mesmo pacote poderia ser enviado v&aacute;rias vezes sem gerar duas tentativas ou duplicar uma conclus&atilde;o, pois a central verificava se o identificador j&aacute; havia sido aplicado e respondia com uma confirma&ccedil;&atilde;o que permitia &agrave; embarca&ccedil;&atilde;o encerrar aquele item da fila, enquanto eventos incompletos permaneciam dispon&iacute;veis para nova tentativa, um detalhe essencial em conex&otilde;es nas quais perder a resposta n&atilde;o significa necessariamente que o servidor deixou de receber os dados.\",\"Tamb&eacute;m evitamos depender de uma sequ&ecirc;ncia cont&iacute;nua, porque um pacote menor poderia chegar antes de outro mais antigo e ainda assim precis&aacute;vamos preservar a ordem real das a&ccedil;&otilde;es, ent&atilde;o a consolida&ccedil;&atilde;o usava identificadores, hor&aacute;rios, depend&ecirc;ncias e vers&otilde;es para decidir quando aplicar cada mudan&ccedil;a, guardando temporariamente o evento que dependia de um dado ainda ausente e produzindo um relat&oacute;rio claro de pend&ecirc;ncias, em vez de parar toda a sincroniza&ccedil;&atilde;o por causa de um &uacute;nico registro problem&aacute;tico.\"]},{\"title\":\"Fazer caber na pr&oacute;xima janela de comunica&ccedil;&atilde;o\",\"paragraphs\":[\"Os cursos precisavam chegar &agrave;s embarca&ccedil;&otilde;es sem consumir toda a conex&atilde;o, por isso deixamos de pensar em um grande pacote enviado a cada atualiza&ccedil;&atilde;o e passamos a identificar exatamente o que havia mudado, separando metadados, atividades, documentos e m&iacute;dias, enquanto os v&iacute;deos recebiam vers&otilde;es adequadas &agrave;s telas dispon&iacute;veis e eram divididos em blocos verific&aacute;veis, dessa forma uma interrup&ccedil;&atilde;o n&atilde;o exigia come&ccedil;ar novamente e o sistema podia continuar pelo &uacute;ltimo bloco confirmado, com prioridade para corre&ccedil;&otilde;es pequenas e conte&uacute;dos obrigat&oacute;rios antes de materiais complementares muito maiores.\",\"A fila considerava tamanho, urg&ecirc;ncia, depend&ecirc;ncias e qualidade moment&acirc;nea da conex&atilde;o, enviando primeiro os resultados acumulados pelos alunos, depois as corre&ccedil;&otilde;es que impediam o acesso a uma atividade e somente ent&atilde;o as m&iacute;dias mais pesadas, al&eacute;m disso cada bloco levava hash e posi&ccedil;&atilde;o dentro do arquivo, permitindo detectar uma transfer&ecirc;ncia corrompida sem descartar tudo, enquanto o destino montava o conte&uacute;do em uma &aacute;rea tempor&aacute;ria e s&oacute; substitu&iacute;a a vers&atilde;o em uso quando o pacote inteiro estivesse confirmado, evitando que um curso ficasse pela metade para quem j&aacute; estava estudando.\",\"Nos ensaios n&oacute;s elevamos a lat&ecirc;ncia, descartamos pacotes, cortamos a conex&atilde;o por horas e for&ccedil;amos v&aacute;rias reconex&otilde;es seguidas, observando o tamanho das filas, o tempo para recuperar o atraso e o efeito de uma atualiza&ccedil;&atilde;o grande sobre os resultados pedag&oacute;gicos, depois levamos um piloto para uma embarca&ccedil;&atilde;o e comparamos as medi&ccedil;&otilde;es do laborat&oacute;rio com o uso real, ajustando o intervalo das tentativas, o volume de cada bloco e os hor&aacute;rios preferenciais para n&atilde;o disputar banda com comunica&ccedil;&otilde;es operacionais mais importantes.\"]},{\"title\":\"Os problemas que s&oacute; aparecem durante uma viagem longa\",\"paragraphs\":[\"Quando a primeira embarca&ccedil;&atilde;o voltou a uma conex&atilde;o melhor, a plataforma enviou dias de atividades acumuladas e recebeu apenas os conte&uacute;dos alterados, por&eacute;m a consolida&ccedil;&atilde;o revelou que hor&aacute;rio do navio, hor&aacute;rio da central e hor&aacute;rio registrado por alguns equipamentos n&atilde;o estavam alinhados, fazendo prazos parecerem vencidos e conclus&otilde;es chegarem fora de ordem, ent&atilde;o mudamos o modelo para preservar o momento informado pela origem junto com a refer&ecirc;ncia de fuso e a sequ&ecirc;ncia local, deixando o hor&aacute;rio de recebimento apenas como dado de auditoria, corre&ccedil;&atilde;o que parece pequena mas foi decisiva para que relat&oacute;rios e certificados contassem a hist&oacute;ria verdadeira do aluno.\",\"Tamb&eacute;m encontramos arquivos que permaneciam incompletos depois de muitas tentativas, eventos retidos por uma depend&ecirc;ncia que nunca chegava e conflitos causados por mudan&ccedil;as feitas em terra durante uma viagem, por isso criamos pain&eacute;is voltados &agrave; opera&ccedil;&atilde;o da fila, mostrando o &uacute;ltimo contato de cada embarca&ccedil;&atilde;o, o volume pendente, os itens repetidamente recusados e a vers&atilde;o dos cursos, junto com a&ccedil;&otilde;es seguras para reenviar um pacote, ignorar uma altera&ccedil;&atilde;o comprovadamente inv&aacute;lida ou solicitar uma nova c&oacute;pia da informa&ccedil;&atilde;o ausente, sem permitir que a equipe resolvesse um conflito apagando registros no banco por tentativa e erro.\",\"A estabiliza&ccedil;&atilde;o aconteceu quando a sincroniza&ccedil;&atilde;o deixou de ser vista como uma c&oacute;pia de arquivos e passou a ser tratada como uma troca de eventos entre ambientes que podiam permanecer separados por muito tempo, com confirma&ccedil;&atilde;o, retomada, prioridade, hist&oacute;rico e regras claras sobre quem podia alterar cada dado, o que tornou poss&iacute;vel estudar a bordo com resposta local e, ao mesmo tempo, manter em terra uma vis&atilde;o confi&aacute;vel da forma&ccedil;&atilde;o realizada durante a viagem.\"]}],\"closing\":\"O oceano n&atilde;o precisava desaparecer para o projeto funcionar, era o sistema que precisava aceitar a dist&acirc;ncia, aproveitar cada oportunidade de comunica&ccedil;&atilde;o e nunca obrigar o aluno a repetir uma atividade apenas porque a conex&atilde;o terminou antes da confirma&ccedil;&atilde;o.\"},\"previous\":\"$undefined\"}]\n")</script>
+<script>self.__VINEXT_RSC_DONE__ = true</script>

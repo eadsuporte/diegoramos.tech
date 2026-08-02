@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../assets/index-C4VkhTZ7.css" data-rsc-css-href="/assets/index-C4VkhTZ7.css"
+          data-precedence="vite-rsc/importer-resources">
+    <link rel="modulepreload" href="../../assets/layout-segment-context-a5HxniUU.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/rolldown-runtime-S-ySWqyJ.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/index-JJj_vJKX.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/framework-CXnKph_e.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/article-client-BCJGUQ7N.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/articles-DD73iHLJ.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/site-chrome-CF6ubRkS.js" crossorigin="">
+    <link rel="modulepreload" href="../../assets/link-2HcM0TzN.js" crossorigin="">
+    <title>A migra&ccedil;&atilde;o de um bilh&atilde;o de linhas de logs | Diego Ramos</title>
+    <meta name="description"
+          content="Como reduzimos a press&atilde;o sobre o banco operacional sem perder hist&oacute;rico, auditoria e relat&oacute;rios, movendo dados antigos em lotes enquanto novos eventos continuavam chegando.">
+
+
+    <meta name="codex-preview" content="development">
+    <script>self.__VINEXT_RSC_PARAMS__ = {"slug": "a-migracao-de-um-bilhao-de-linhas-de-logs"}</script>
+    <script>self.__VINEXT_RSC_NAV__ = {
+        "pathname": "/artigos/a-migracao-de-um-bilhao-de-linhas-de-logs",
+        "searchParams": []
+    }</script>
+    <link rel="modulepreload" href="../../assets/index-JJj_vJKX.js">
+    <link rel="preload" href="../../assets/fonts/geist-8ac0455e797f/geist-ff2310f5.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-8ac0455e797f/geist-875ccdd4.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-8ac0455e797f/geist-52306abf.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-8ac0455e797f/geist-001175b1.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-8ac0455e797f/geist-98bbbccb.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-f6b33328.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-44e03052.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-0638449e.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-971fb274.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-44745446.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/geist-mono-00e989178794/geist-mono-013b2f2f.woff2" as="font"
+          type="font/woff2" crossorigin>
+    <style data-vinext-fonts>
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-8ac0455e797f/geist-ff2310f5.woff2") format('woff2');
+            unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+        }
+
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-8ac0455e797f/geist-875ccdd4.woff2") format('woff2');
+            unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-8ac0455e797f/geist-52306abf.woff2") format('woff2');
+            unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-8ac0455e797f/geist-001175b1.woff2") format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+
+        @font-face {
+            font-family: 'Geist';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-8ac0455e797f/geist-98bbbccb.woff2") format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        .__font_geist_0tvmz3h {
+            font-family: 'Geist', sans-serif;
+        }
+
+        .__variable_geist_0tvmz3h {
+            --font-geist-sans: 'Geist', sans-serif;
+        }
+
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-f6b33328.woff2") format('woff2');
+            unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+        }
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-44e03052.woff2") format('woff2');
+            unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-0638449e.woff2") format('woff2');
+            unicode-range: U+2000-2001, U+2004-2008, U+200A, U+23B8-23BD, U+2500-259F;
+        }
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-971fb274.woff2") format('woff2');
+            unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-44745446.woff2") format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+
+        @font-face {
+            font-family: 'Geist Mono';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url("../../assets/fonts/geist-mono-00e989178794/geist-mono-013b2f2f.woff2") format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        .__font_geist_mono_1diim1n {
+            font-family: 'Geist Mono', sans-serif;
+        }
+
+        .__variable_geist_mono_1diim1n {
+            --font-geist-mono: 'Geist Mono', sans-serif;
+        }
+    </style>
+</head>
+<body class="__variable_geist_0tvmz3h __variable_geist_mono_1diim1n antialiased">
+<main>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="../../" class="brand"
+               aria-label="Diego Ramos, in&iacute;cio"><span class="brand-mark"><img alt="logo" src="../../assets/diego-ramos-mark.png"></span>
+                <span class="brand-copy"><strong>Diego Ramos</strong><small>Os bastidores da EAD Suporte</small></span></a>
+            <nav class="desktop-nav" aria-label="Navega&ccedil;&atilde;o principal">
+                <a href="../" class="nav-current">Artigos</a>
+                <a href="../../bastidores/">Bastidores</a>
+                <a href="../../#sobre">Sobre</a></nav>
+            <button aria-label="Ativar modo claro" class="theme-toggle" type="button"><span class="theme-icon"><svg
+                    aria-hidden="true" fill="none" height="18" viewbox="0 0 24 24" width="18"><g stroke="currentColor"
+                                                                                                 stroke-linecap="round"
+                                                                                                 stroke-linejoin="round"
+                                                                                                 stroke-width="1.8"><circle
+                    cx="12" cy="12" r="4"></circle><path
+                    d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></g></svg></span>
+                <span>Claro</span>
+            </button>
+        </div>
+    </header>
+    <article class="story-page long-article-page">
+        <header class="story-hero article-hero">
+            <div class="story-hero-glow"></div>
+            <div class="container story-heading">
+                <a href="../" class="story-back">
+                    <svg aria-hidden="true" class="arrow-back" fill="none" height="17" viewbox="0 0 24 24" width="17">
+                        <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="1.8"></path>
+                    </svg>
+                    Todos os artigos</a>
+                <div class="story-meta"><span>Dados e observabilidade</span><i></i>
+                    <time datetime="2024-01-22">22 de janeiro de 2024</time>
+                    <i></i><b>21<!-- --> min de leitura</b></div>
+                <h1>A migra&ccedil;&atilde;o de um bilh&atilde;o de linhas de logs</h1>
+                <p>Como reduzimos a press&atilde;o sobre o banco operacional sem perder hist&oacute;rico, auditoria e
+                    relat&oacute;rios, movendo dados antigos em lotes enquanto novos eventos continuavam chegando.</p>
+            </div>
+        </header>
+        <div class="container story-layout long-article-layout">
+            <aside class="story-aside article-aside"><span class="story-year">2024</span>
+                <p>Um relato t&eacute;cnico completo sobre as decis&otilde;es, os testes e as descobertas que mudaram o
+                    caminho deste projeto.</p><span class="article-reading-time">Leitura aproximada<br><strong>21
+                    <!-- --> minutos</strong></span>
+                <a href="../">Ver todos os artigos
+                    <svg aria-hidden="true" class="" fill="none" height="17" viewbox="0 0 24 24" width="17">
+                        <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="1.8"></path>
+                    </svg>
+                </a></aside>
+            <div class="story-body long-article-body">
+                <div class="story-opening-mark">DR</div>
+                <section class="long-article-section"><h2>O banco ainda respondia, mas cada m&ecirc;s custava mais</h2>
+                    <p>A tabela de logs crescia todos os dias e por muito tempo o aumento foi absorvido com mais espa&ccedil;o,
+                        manuten&ccedil;&atilde;o e &iacute;ndices, at&eacute; que relat&oacute;rios come&ccedil;aram a
+                        percorrer per&iacute;odos enormes, rotinas de limpeza demoravam cada vez mais e opera&ccedil;&otilde;es
+                        comuns do banco disputavam recursos com consultas hist&oacute;ricas, ent&atilde;o medimos o
+                        volume total, o crescimento di&aacute;rio, a distribui&ccedil;&atilde;o por tipo de evento, usu&aacute;rio,
+                        componente e per&iacute;odo, identificando tamb&eacute;m integra&ccedil;&otilde;es que
+                        registravam informa&ccedil;&otilde;es em excesso, porque migrar um bilh&atilde;o de linhas sem
+                        reduzir a causa apenas transportaria o mesmo problema para um lugar novo.</p>
+                    <p>A proje&ccedil;&atilde;o mostrou que ampliar a infraestrutura adiaria a dificuldade, mas n&atilde;o
+                        mudaria a rela&ccedil;&atilde;o entre uma base operacional, que precisa responder rapidamente
+                        &agrave;s a&ccedil;&otilde;es atuais, e um hist&oacute;rico usado para auditoria e an&aacute;lise,
+                        que aceita outra organiza&ccedil;&atilde;o e outras formas de consulta, por isso levantamos
+                        todos os consumidores antes de mover qualquer registro, incluindo relat&oacute;rios do Software
+                        Moodle&trade;, ferramentas de BI, integra&ccedil;&otilde;es, investiga&ccedil;&otilde;es de
+                        suporte, obriga&ccedil;&otilde;es de reten&ccedil;&atilde;o e consultas manuais que existiam
+                        apenas na rotina de uma pessoa.</p>
+                    <p>Esse mapeamento revelou depend&ecirc;ncias inesperadas, como relat&oacute;rios que presumiam
+                        encontrar toda a vida do aluno na tabela principal, processos que guardavam o &uacute;ltimo
+                        identificador lido e rotinas externas que buscavam novamente per&iacute;odos j&aacute;
+                        processados, ent&atilde;o cada consumidor recebeu uma decis&atilde;o, continuar consultando a
+                        janela recente no banco operacional, passar a usar a base hist&oacute;rica ou combinar as duas
+                        fontes por uma camada controlada, evitando que o corte terminasse com dezenas de consultas
+                        apontando silenciosamente para dados incompletos.</p></section>
+                <section class="long-article-section"><h2>Laborat&oacute;rio com tamanho suficiente para dizer a
+                    verdade</h2>
+                    <p>Os primeiros ensaios com alguns milh&otilde;es de linhas funcionaram r&aacute;pido demais e
+                        produziram uma confian&ccedil;a enganosa, pois &iacute;ndices, cache, ordena&ccedil;&otilde;es e
+                        espa&ccedil;o tempor&aacute;rio se comportam de outra maneira quando a tabela e os lotes
+                        crescem, ent&atilde;o montamos uma base proporcional ao volume real, preservando distribui&ccedil;&atilde;o
+                        de datas, tipos de evento e tamanhos de campos, depois repetimos extra&ccedil;&atilde;o, importa&ccedil;&atilde;o,
+                        consulta e exclus&atilde;o enquanto observ&aacute;vamos uso de disco, gera&ccedil;&atilde;o de
+                        logs internos, bloqueios, replica&ccedil;&atilde;o e tempo de recupera&ccedil;&atilde;o ap&oacute;s
+                        uma interrup&ccedil;&atilde;o.</p>
+                    <p>Definimos uma janela recente que continuaria no banco operacional e uma estrutura hist&oacute;rica
+                        preparada para consultas por per&iacute;odo, usu&aacute;rio, curso, componente e evento, sem
+                        copiar todos os &iacute;ndices da origem por h&aacute;bito, porque cada &iacute;ndice aumenta o
+                        custo de importa&ccedil;&atilde;o e armazenamento, ent&atilde;o come&ccedil;amos pelos caminhos
+                        realmente usados, medimos os planos de execu&ccedil;&atilde;o e deixamos espa&ccedil;o para
+                        ajustar depois que os relat&oacute;rios estivessem trabalhando com o volume verdadeiro.</p>
+                    <p>A migra&ccedil;&atilde;o foi dividida por intervalos de tempo e limites de identificadores, com
+                        lotes pequenos o suficiente para serem retomados e grandes o bastante para n&atilde;o desperdi&ccedil;ar
+                        a maior parte do tempo abrindo transa&ccedil;&otilde;es, cada lote recebia situa&ccedil;&atilde;o,
+                        primeira e &uacute;ltima linha esperada, contagem, hor&aacute;rio, checksum calculado sobre
+                        campos est&aacute;veis e resultado da importa&ccedil;&atilde;o, permitindo que uma falha de rede
+                        ou armazenamento voltasse ao ponto de controle em vez de reiniciar meses de eventos.</p>
+                </section>
+                <section class="long-article-section"><h2>Mover o passado enquanto o presente continuava chegando</h2>
+                    <p>Come&ccedil;amos pelos per&iacute;odos mais antigos e mantivemos o Software Moodle&trade; em
+                        funcionamento, pois os novos eventos eram gravados em uma faixa muito distante daquela que
+                        estava sendo transferida, mesmo assim limitamos ritmo e concorr&ecirc;ncia para que a leitura de
+                        grandes lotes n&atilde;o retirasse recursos das atividades dos alunos, ajustando o processo
+                        conforme lat&ecirc;ncia do banco, tamanho da fila e hor&aacute;rios de maior uso, uma migra&ccedil;&atilde;o
+                        quente que demorava mais no calend&aacute;rio, por&eacute;m reduzia bastante o trabalho necess&aacute;rio
+                        durante a parada definitiva.</p>
+                    <p>Depois de cada importa&ccedil;&atilde;o compar&aacute;vamos contagens por per&iacute;odo e tipo,
+                        limites de identificadores, checksums e amostras escolhidas de diferentes componentes, mantendo
+                        os registros na origem at&eacute; a valida&ccedil;&atilde;o e separando o ato de copiar do ato
+                        de remover, porque apagar imediatamente tornaria a recupera&ccedil;&atilde;o mais dif&iacute;cil
+                        e misturaria duas opera&ccedil;&otilde;es de risco, ent&atilde;o somente lotes confirmados
+                        entravam na fila de reten&ccedil;&atilde;o e ainda respeitavam o prazo definido para
+                        retorno.</p>
+                    <p>O ponto de controle guardava o &uacute;ltimo evento inclu&iacute;do na migra&ccedil;&atilde;o
+                        quente e permitia buscar, perto do corte, apenas aquilo que havia sido criado depois, enquanto
+                        relat&oacute;rios eram adaptados e testados contra as duas fontes, primeiro comparando
+                        resultados no mesmo per&iacute;odo e depois medindo consultas longas, pagina&ccedil;&atilde;o e
+                        filtros, pois o sucesso n&atilde;o seria apenas ter um bilh&atilde;o de linhas em outro banco,
+                        mas permitir que auditoria e an&aacute;lise continuassem encontrando a informa&ccedil;&atilde;o
+                        com tempo previs&iacute;vel.</p></section>
+                <section class="long-article-section"><h2>O corte e o trabalho que veio depois</h2>
+                    <p>Na janela de manuten&ccedil;&atilde;o interrompemos os produtores conhecidos, registramos o
+                        &uacute;ltimo identificador, transferimos os eventos posteriores ao ponto de controle, repetimos
+                        as valida&ccedil;&otilde;es e direcionamos os relat&oacute;rios hist&oacute;ricos para a nova
+                        estrutura, depois executamos um conjunto curto de consultas conhecidas em ambos os lados para
+                        confirmar totais, limites e amostras antes de liberar a plataforma, com um procedimento de
+                        retorno que preservava a origem e permitia desfazer o direcionamento sem tentar reimportar todo
+                        o hist&oacute;rico &agrave;s pressas.</p>
+                    <p>As primeiras consultas no destino ainda apresentaram planos inadequados, porque as estat&iacute;sticas
+                        n&atilde;o representavam bem a distribui&ccedil;&atilde;o rec&eacute;m importada e alguns
+                        filtros combinavam colunas de uma forma diferente da observada no laborat&oacute;rio, ent&atilde;o
+                        atualizamos estat&iacute;sticas, revimos &iacute;ndices, reescrevemos consultas espec&iacute;ficas
+                        e medimos novamente com per&iacute;odos pequenos e extensos, evitando declarar o projeto
+                        encerrado no momento em que o &uacute;ltimo lote havia sido copiado.</p>
+                    <p>Tamb&eacute;m implementamos uma pol&iacute;tica cont&iacute;nua de reten&ccedil;&atilde;o, na
+                        qual novos eventos permanecem no banco operacional pelo per&iacute;odo necess&aacute;rio e
+                        depois seguem para o hist&oacute;rico com os mesmos controles de lote e valida&ccedil;&atilde;o,
+                        acompanhada de indicadores de crescimento, diverg&ecirc;ncia, atraso e desempenho, pois sem esse
+                        ciclo a plataforma voltaria ao ponto inicial alguns meses depois e a grande migra&ccedil;&atilde;o
+                        teria servido apenas como uma limpeza excepcional.</p>
+                    <p>O resultado foi um banco operacional menor e mais previs&iacute;vel, relat&oacute;rios hist&oacute;ricos
+                        capazes de consultar per&iacute;odos longos sem disputar o mesmo espa&ccedil;o das a&ccedil;&otilde;es
+                        atuais e um processo verific&aacute;vel para continuar movendo dados, mantendo a trilha de
+                        auditoria sem exigir que toda consulta, antiga ou recente, percorresse um bilh&atilde;o de
+                        linhas no cora&ccedil;&atilde;o da plataforma.</p></section>
+                <div class="article-conclusion"><span>O que ficou deste projeto</span>
+                    <p>Migrar os logs n&atilde;o significou escolher entre desempenho e hist&oacute;ria, significou
+                        reconhecer que dados recentes e hist&oacute;ricos t&ecirc;m ritmos diferentes, organizar cada um
+                        para seu uso e construir uma passagem cont&iacute;nua entre os dois.</p></div>
+            </div>
+        </div>
+        <nav class="container story-navigation" aria-label="Outros artigos">
+            <a class="story-nav-card previous"
+               href="../quando-os-arquivos-mbz-deixaram-de-ser-uma-estrategia-de-migracao/"><small>
+                <svg aria-hidden="true" class="arrow-back" fill="none" height="17" viewbox="0 0 24 24" width="17">
+                    <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="1.8"></path>
+                </svg>
+                Artigo anterior</small><strong>Quando os arquivos MBZ deixaram de ser uma estrat&eacute;gia de migra&ccedil;&atilde;o</strong></a>
+            <a
+                    class="story-nav-card next" href="../a-migracao-a-quente-de-500-tb-de-moodledata/"><small>Pr&oacute;ximo
+                artigo
+                <svg aria-hidden="true" class="" fill="none" height="17" viewbox="0 0 24 24" width="17">
+                    <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="1.8"></path>
+                </svg>
+            </small><strong>A migra&ccedil;&atilde;o a quente de 500 TB de moodledata</strong></a></nav>
+    </article>
+    <footer class="site-footer story-footer">
+        <div class="container footer-inner">
+            <a href="../../" class="brand footer-brand"><span class="brand-mark"><img alt="logo" src="../../assets/diego-ramos-mark.png"></span>
+                <span class="brand-copy"><strong>Diego Ramos</strong><small>Os bastidores da EAD Suporte</small></span></a>
+            <p>Projetos reais, aprendizados compartilhados.</p>
+            <div class="footer-links">
+                <a href="../">Artigos</a>
+                <a href="../../bastidores/">Bastidores</a>
+                <a href="https://www.linkedin.com/in/diegoramostech/" target="_blank" rel="noreferrer">LinkedIn</a>
+                <a href="https://wa.me/61493536147" target="_blank" rel="noreferrer">WhatsApp</a></div>
+        </div>
+    </footer>
+</main>
+<script id="_R_">import("/assets/index-JJj_vJKX.js")</script>
+<script>(function () {
+    function c() {
+        var b = a.contentDocument || (a.contentWindow && a.contentWindow.document);
+        if (b) {
+            var d = b.createElement('script');
+            d.innerHTML = "window.__CF$cv$params={r:'a24fbc524d77a164',t:'MTc4NTcwMTUyNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName('head')[0].appendChild(d)
+        }
+    }
+
+    if (document.body) {
+        var a = document.createElement('iframe');
+        a.height = 1;
+        a.width = 1;
+        a.style.position = 'absolute';
+        a.style.top = 0;
+        a.style.left = 0;
+        a.style.border = 'none';
+        a.style.visibility = 'hidden';
+        document.body.appendChild(a);
+        if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else {
+            var e = document.onreadystatechange || function () {
+            };
+            document.onreadystatechange = function (b) {
+                e(b);
+                'loading' !== document.readyState && (document.onreadystatechange = e, c())
+            }
+        }
+    }
+})();</script>
+</body>
+</html>
+<script>self.__VINEXT_RSC_CHUNKS__ = self.__VINEXT_RSC_CHUNKS__ || [];
+self.__VINEXT_RSC_CHUNKS__.push("2:I[\"8c0f216c4604\",[],\"Children\",1]\n3:I[\"15c18cfaeeff\",[],\"LayoutSegmentProvider\",1]\n4:I[\"8c0f216c4604\",[],\"Slot\",1]\n5:I[\"593f344dc510\",[],\"RedirectBoundary\",1]\n:HL[\"/assets/index-C4VkhTZ7.css\",\"style\"]\n")</script>
+<script>self.__VINEXT_RSC_CHUNKS__ = self.__VINEXT_RSC_CHUNKS__ || [];
+self.__VINEXT_RSC_CHUNKS__.push("0:{\"__route\":\"route:/artigos/a-migracao-de-um-bilhao-de-linhas-de-logs\",\"__interceptionContext\":null,\"__layoutIds\":[\"layout:/\"],\"__rootLayout\":\"/\",\"page:/artigos/a-migracao-de-um-bilhao-de-linhas-de-logs\":\"$L1\",\"layout:/\":[[[[\"$\",\"link\",\"css:/assets/index-C4VkhTZ7.css\",{\"rel\":\"stylesheet\",\"precedence\":\"vite-rsc/importer-resources\",\"href\":\"/assets/index-C4VkhTZ7.css\",\"data-rsc-css-href\":\"/assets/index-C4VkhTZ7.css\"}],\"$undefined\"],[\"$\",\"html\",null,{\"lang\":\"pt-BR\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"__variable_geist_0tvmz3h __variable_geist_mono_1diim1n antialiased\",\"children\":[\"$\",\"$L2\",null,{}]}]}]],null],\"route:/artigos/a-migracao-de-um-bilhao-de-linhas-de-logs\":[[[\"$\",\"meta\",null,{\"charSet\":\"utf-8\"}],[[\"$\",\"title\",\"0\",{\"children\":\"A migra&ccedil;&atilde;o de um bilh&atilde;o de linhas de logs | Diego Ramos\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Como reduzimos a press&atilde;o sobre o banco operacional sem perder hist&oacute;rico, auditoria e relat&oacute;rios, movendo dados antigos em lotes enquanto novos eventos continuavam chegando.\"}],[\"$\",\"link\",\"2\"],[\"$\",\"link\",\"3\"],[\"$\",\"meta\",\"4\"]],[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]],[\"$\",\"$L3\",null,{\"segmentMap\":{\"children\":[\"artigos\",\"a-migracao-de-um-bilhao-de-linhas-de-logs\"]},\"children\":[\"$\",\"$L4\",null,{\"id\":\"layout:/\",\"parallelSlots\":\"$undefined\",\"children\":[\"$\",\"$L5\",null,{\"children\":[\"$\",\"$L3\",null,{\"segmentMap\":{\"children\":[]},\"children\":[\"$\",\"$L4\",null,{\"id\":\"page:/artigos/a-migracao-de-um-bilhao-de-linhas-de-logs\"}]}]}]}]}]],\"__layoutFlags\":{\"layout:/\":\"s\"},\"__artifactCompatibility\":{\"schemaVersion\":1,\"graphVersion\":\"app-route-graph:1z0a2tk1cg09wo\",\"deploymentVersion\":\"61cac416-4091-4a59-a4d7-d2cac849a132\",\"appElementsSchemaVersion\":1,\"rscPayloadSchemaVersion\":1,\"rootBoundaryId\":\"/\",\"renderEpoch\":null}}\n6:I[\"3a083d5cc219\",[],\"LongArticleClient\",1]\n")</script>
+<script>self.__VINEXT_RSC_CHUNKS__ = self.__VINEXT_RSC_CHUNKS__ || [];
+self.__VINEXT_RSC_CHUNKS__.push("1:[\"$\",\"$L6\",null,{\"article\":{\"slug\":\"a-migracao-de-um-bilhao-de-linhas-de-logs\",\"date\":\"2024-01-22\",\"title\":\"A migra&ccedil;&atilde;o de um bilh&atilde;o de linhas de logs\",\"category\":\"Dados e observabilidade\",\"summary\":\"Como reduzimos a press&atilde;o sobre o banco operacional sem perder hist&oacute;rico, auditoria e relat&oacute;rios, movendo dados antigos em lotes enquanto novos eventos continuavam chegando.\",\"readingMinutes\":21,\"sections\":[{\"title\":\"O banco ainda respondia, mas cada m&ecirc;s custava mais\",\"paragraphs\":[\"A tabela de logs crescia todos os dias e por muito tempo o aumento foi absorvido com mais espa&ccedil;o, manuten&ccedil;&atilde;o e &iacute;ndices, at&eacute; que relat&oacute;rios come&ccedil;aram a percorrer per&iacute;odos enormes, rotinas de limpeza demoravam cada vez mais e opera&ccedil;&otilde;es comuns do banco disputavam recursos com consultas hist&oacute;ricas, ent&atilde;o medimos o volume total, o crescimento di&aacute;rio, a distribui&ccedil;&atilde;o por tipo de evento, usu&aacute;rio, componente e per&iacute;odo, identificando tamb&eacute;m integra&ccedil;&otilde;es que registravam informa&ccedil;&otilde;es em excesso, porque migrar um bilh&atilde;o de linhas sem reduzir a causa apenas transportaria o mesmo problema para um lugar novo.\",\"A proje&ccedil;&atilde;o mostrou que ampliar a infraestrutura adiaria a dificuldade, mas n&atilde;o mudaria a rela&ccedil;&atilde;o entre uma base operacional, que precisa responder rapidamente &agrave;s a&ccedil;&otilde;es atuais, e um hist&oacute;rico usado para auditoria e an&aacute;lise, que aceita outra organiza&ccedil;&atilde;o e outras formas de consulta, por isso levantamos todos os consumidores antes de mover qualquer registro, incluindo relat&oacute;rios do Software Moodle&trade;, ferramentas de BI, integra&ccedil;&otilde;es, investiga&ccedil;&otilde;es de suporte, obriga&ccedil;&otilde;es de reten&ccedil;&atilde;o e consultas manuais que existiam apenas na rotina de uma pessoa.\",\"Esse mapeamento revelou depend&ecirc;ncias inesperadas, como relat&oacute;rios que presumiam encontrar toda a vida do aluno na tabela principal, processos que guardavam o &uacute;ltimo identificador lido e rotinas externas que buscavam novamente per&iacute;odos j&aacute; processados, ent&atilde;o cada consumidor recebeu uma decis&atilde;o, continuar consultando a janela recente no banco operacional, passar a usar a base hist&oacute;rica ou combinar as duas fontes por uma camada controlada, evitando que o corte terminasse com dezenas de consultas apontando silenciosamente para dados incompletos.\"]},{\"title\":\"Laborat&oacute;rio com tamanho suficiente para dizer a verdade\",\"paragraphs\":[\"Os primeiros ensaios com alguns milh&otilde;es de linhas funcionaram r&aacute;pido demais e produziram uma confian&ccedil;a enganosa, pois &iacute;ndices, cache, ordena&ccedil;&otilde;es e espa&ccedil;o tempor&aacute;rio se comportam de outra maneira quando a tabela e os lotes crescem, ent&atilde;o montamos uma base proporcional ao volume real, preservando distribui&ccedil;&atilde;o de datas, tipos de evento e tamanhos de campos, depois repetimos extra&ccedil;&atilde;o, importa&ccedil;&atilde;o, consulta e exclus&atilde;o enquanto observ&aacute;vamos uso de disco, gera&ccedil;&atilde;o de logs internos, bloqueios, replica&ccedil;&atilde;o e tempo de recupera&ccedil;&atilde;o ap&oacute;s uma interrup&ccedil;&atilde;o.\",\"Definimos uma janela recente que continuaria no banco operacional e uma estrutura hist&oacute;rica preparada para consultas por per&iacute;odo, usu&aacute;rio, curso, componente e evento, sem copiar todos os &iacute;ndices da origem por h&aacute;bito, porque cada &iacute;ndice aumenta o custo de importa&ccedil;&atilde;o e armazenamento, ent&atilde;o come&ccedil;amos pelos caminhos realmente usados, medimos os planos de execu&ccedil;&atilde;o e deixamos espa&ccedil;o para ajustar depois que os relat&oacute;rios estivessem trabalhando com o volume verdadeiro.\",\"A migra&ccedil;&atilde;o foi dividida por intervalos de tempo e limites de identificadores, com lotes pequenos o suficiente para serem retomados e grandes o bastante para n&atilde;o desperdi&ccedil;ar a maior parte do tempo abrindo transa&ccedil;&otilde;es, cada lote recebia situa&ccedil;&atilde;o, primeira e &uacute;ltima linha esperada, contagem, hor&aacute;rio, checksum calculado sobre campos est&aacute;veis e resultado da importa&ccedil;&atilde;o, permitindo que uma falha de rede ou armazenamento voltasse ao ponto de controle em vez de reiniciar meses de eventos.\"]},{\"title\":\"Mover o passado enquanto o presente continuava chegando\",\"paragraphs\":[\"Come&ccedil;amos pelos per&iacute;odos mais antigos e mantivemos o Software Moodle&trade; em funcionamento, pois os novos eventos eram gravados em uma faixa muito distante daquela que estava sendo transferida, mesmo assim limitamos ritmo e concorr&ecirc;ncia para que a leitura de grandes lotes n&atilde;o retirasse recursos das atividades dos alunos, ajustando o processo conforme lat&ecirc;ncia do banco, tamanho da fila e hor&aacute;rios de maior uso, uma migra&ccedil;&atilde;o quente que demorava mais no calend&aacute;rio, por&eacute;m reduzia bastante o trabalho necess&aacute;rio durante a parada definitiva.\",\"Depois de cada importa&ccedil;&atilde;o compar&aacute;vamos contagens por per&iacute;odo e tipo, limites de identificadores, checksums e amostras escolhidas de diferentes componentes, mantendo os registros na origem at&eacute; a valida&ccedil;&atilde;o e separando o ato de copiar do ato de remover, porque apagar imediatamente tornaria a recupera&ccedil;&atilde;o mais dif&iacute;cil e misturaria duas opera&ccedil;&otilde;es de risco, ent&atilde;o somente lotes confirmados entravam na fila de reten&ccedil;&atilde;o e ainda respeitavam o prazo definido para retorno.\",\"O ponto de controle guardava o &uacute;ltimo evento inclu&iacute;do na migra&ccedil;&atilde;o quente e permitia buscar, perto do corte, apenas aquilo que havia sido criado depois, enquanto relat&oacute;rios eram adaptados e testados contra as duas fontes, primeiro comparando resultados no mesmo per&iacute;odo e depois medindo consultas longas, pagina&ccedil;&atilde;o e filtros, pois o sucesso n&atilde;o seria apenas ter um bilh&atilde;o de linhas em outro banco, mas permitir que auditoria e an&aacute;lise continuassem encontrando a informa&ccedil;&atilde;o com tempo previs&iacute;vel.\"]},{\"title\":\"O corte e o trabalho que veio depois\",\"paragraphs\":[\"Na janela de manuten&ccedil;&atilde;o interrompemos os produtores conhecidos, registramos o &uacute;ltimo identificador, transferimos os eventos posteriores ao ponto de controle, repetimos as valida&ccedil;&otilde;es e direcionamos os relat&oacute;rios hist&oacute;ricos para a nova estrutura, depois executamos um conjunto curto de consultas conhecidas em ambos os lados para confirmar totais, limites e amostras antes de liberar a plataforma, com um procedimento de retorno que preservava a origem e permitia desfazer o direcionamento sem tentar reimportar todo o hist&oacute;rico &agrave;s pressas.\",\"As primeiras consultas no destino ainda apresentaram planos inadequados, porque as estat&iacute;sticas n&atilde;o representavam bem a distribui&ccedil;&atilde;o rec&eacute;m importada e alguns filtros combinavam colunas de uma forma diferente da observada no laborat&oacute;rio, ent&atilde;o atualizamos estat&iacute;sticas, revimos &iacute;ndices, reescrevemos consultas espec&iacute;ficas e medimos novamente com per&iacute;odos pequenos e extensos, evitando declarar o projeto encerrado no momento em que o &uacute;ltimo lote havia sido copiado.\",\"Tamb&eacute;m implementamos uma pol&iacute;tica cont&iacute;nua de reten&ccedil;&atilde;o, na qual novos eventos permanecem no banco operacional pelo per&iacute;odo necess&aacute;rio e depois seguem para o hist&oacute;rico com os mesmos controles de lote e valida&ccedil;&atilde;o, acompanhada de indicadores de crescimento, diverg&ecirc;ncia, atraso e desempenho, pois sem esse ciclo a plataforma voltaria ao ponto inicial alguns meses depois e a grande migra&ccedil;&atilde;o teria servido apenas como uma limpeza excepcional.\",\"O resultado foi um banco operacional menor e mais previs&iacute;vel, relat&oacute;rios hist&oacute;ricos capazes de consultar per&iacute;odos longos sem disputar o mesmo espa&ccedil;o das a&ccedil;&otilde;es atuais e um processo verific&aacute;vel para continuar movendo dados, mantendo a trilha de auditoria sem exigir que toda consulta, antiga ou recente, percorresse um bilh&atilde;o de linhas no cora&ccedil;&atilde;o da plataforma.\"]}],\"closing\":\"Migrar os logs n&atilde;o significou escolher entre desempenho e hist&oacute;ria, significou reconhecer que dados recentes e hist&oacute;ricos t&ecirc;m ritmos diferentes, organizar cada um para seu uso e construir uma passagem cont&iacute;nua entre os dois.\"},\"next\":{\"slug\":\"a-migracao-a-quente-de-500-tb-de-moodledata\",\"date\":\"2025-02-10\",\"title\":\"A migra&ccedil;&atilde;o a quente de 500 TB de moodledata\",\"category\":\"Infraestrutura\",\"summary\":\"Uma pr&eacute; c&oacute;pia extensa, sincroniza&ccedil;&otilde;es incrementais, controle de exclus&otilde;es e um delta final pequeno o suficiente para caber na janela de manuten&ccedil;&atilde;o.\",\"readingMinutes\":24,\"sections\":[{\"title\":\"Quinhentos terabytes n&atilde;o eram quinhentos terabytes iguais\",\"paragraphs\":[\"O n&uacute;mero total chamava aten&ccedil;&atilde;o, mas planejar a migra&ccedil;&atilde;o exigia entender o que havia dentro dele, ent&atilde;o o primeiro invent&aacute;rio separou arquivos ativos do Software Moodle&trade;, v&iacute;deos, backups de cursos, tempor&aacute;rios, caches, pacotes de processamento e conte&uacute;dos que j&aacute; aguardavam exclus&atilde;o, relacionando tamanho, quantidade, idade, taxa de mudan&ccedil;a e import&acirc;ncia para a abertura da plataforma, porque copiar cache como se fosse material pedag&oacute;gico gastaria dias e transportar um backup antigo sem decis&atilde;o de reten&ccedil;&atilde;o apenas mudaria o endere&ccedil;o do excesso.\",\"Cruzamos o armazenamento com as refer&ecirc;ncias do banco para distinguir arquivos conhecidos, &oacute;rf&atilde;os, tempor&aacute;rios e objetos que poderiam ser regenerados, mas n&atilde;o removemos nada apenas por n&atilde;o encontrar uma associa&ccedil;&atilde;o na primeira consulta, pois plugins e integra&ccedil;&otilde;es podem manter estruturas pr&oacute;prias, ent&atilde;o os casos duvidosos foram amostrados, classificados e discutidos com as equipes respons&aacute;veis, enquanto caches e tempor&aacute;rios receberam regras claras de recria&ccedil;&atilde;o no destino.\",\"Com a taxa real de leitura e escrita medida entre origem e destino, calculamos que uma c&oacute;pia feita somente durante a manuten&ccedil;&atilde;o ultrapassaria qualquer janela aceit&aacute;vel, mesmo usando toda a banda dispon&iacute;vel, conclus&atilde;o que levou a dividir o trabalho em uma transfer&ecirc;ncia inicial com a plataforma funcionando, sincroniza&ccedil;&otilde;es intermedi&aacute;rias para reduzir a diferen&ccedil;a e um delta final durante a parada, estrat&eacute;gia simples de resumir, por&eacute;m dependente de controles rigorosos para saber o que havia mudado, o que fora exclu&iacute;do e quais arquivos estavam completos.\"]},{\"title\":\"Copiar sem confundir movimento com conclus&atilde;o\",\"paragraphs\":[\"A primeira transfer&ecirc;ncia percorreu o conjunto eleg&iacute;vel enquanto alunos, professores, tarefas e integra&ccedil;&otilde;es continuavam criando arquivos, o que significava aceitar que alguns objetos seriam alterados ou desapareceriam antes de a c&oacute;pia terminar, ent&atilde;o o destino recebeu tudo em uma estrutura preparada para sincroniza&ccedil;&otilde;es posteriores e nenhum total parcial foi tratado como prova de consist&ecirc;ncia, enquanto manifestos registravam caminho, tamanho, hor&aacute;rio, hash quando vi&aacute;vel, situa&ccedil;&atilde;o e &uacute;ltima verifica&ccedil;&atilde;o, oferecendo uma vis&atilde;o independente da sa&iacute;da do programa de c&oacute;pia.\",\"Arquivos grandes foram tratados de forma diferente dos milh&otilde;es de objetos pequenos, porque os primeiros exigiam retomada eficiente depois de uma interrup&ccedil;&atilde;o e os segundos gastavam muito tempo em opera&ccedil;&otilde;es de cat&aacute;logo, assim ajustamos paralelismo e tamanho de lote por grupo, acompanhando impacto sobre a origem para que a migra&ccedil;&atilde;o n&atilde;o piorasse a experi&ecirc;ncia de quem usava o Software Moodle&trade;, al&eacute;m de limitar tarefas de verifica&ccedil;&atilde;o pesada nos hor&aacute;rios de pico.\",\"As sincroniza&ccedil;&otilde;es seguintes buscavam arquivos novos ou modificados desde a etapa anterior e diminu&iacute;am progressivamente a diferen&ccedil;a, mas a compara&ccedil;&atilde;o n&atilde;o dependia somente do hor&aacute;rio do sistema, que poderia variar ou ser preservado de maneira diferente, por isso combinamos metadados, manifestos e hashes conforme o tipo de conte&uacute;do, registrando tamb&eacute;m itens repetidamente inst&aacute;veis para trat&aacute; los perto do corte, em vez de copiar v&aacute;rias vezes um arquivo tempor&aacute;rio que ainda estava sendo escrito.\"]},{\"title\":\"Exclus&otilde;es tamb&eacute;m precisavam atravessar a migra&ccedil;&atilde;o\",\"paragraphs\":[\"Copiar arquivos novos era apenas metade do trabalho, porque durante as semanas de migra&ccedil;&atilde;o a origem continuava removendo objetos e, sem uma estrat&eacute;gia para exclus&otilde;es, o destino terminaria cheio de dados que j&aacute; n&atilde;o existiam, ent&atilde;o criamos uma lista baseada em compara&ccedil;&otilde;es e eventos dispon&iacute;veis, mas n&atilde;o apag&aacute;vamos imediatamente, mov&iacute;amos os candidatos para quarentena com data, origem da decis&atilde;o e prazo, permitindo recuperar um item caso a aus&ecirc;ncia tivesse sido causada por uma leitura incompleta ou por uma diferen&ccedil;a tempor&aacute;ria de cat&aacute;logo.\",\"A consist&ecirc;ncia entre banco e moodledata orientou o corte, pois um banco atualizado apontando para uma c&oacute;pia antiga de arquivos produziria falhas mesmo que cada lado parecesse correto isoladamente, ent&atilde;o definimos a ordem de manuten&ccedil;&atilde;o, parada de tarefas que escreviam dados, &uacute;ltimo backup do banco, sincroniza&ccedil;&atilde;o do delta, aplica&ccedil;&atilde;o das exclus&otilde;es confirmadas, restaura&ccedil;&atilde;o no destino e libera&ccedil;&atilde;o dos servi&ccedil;os, registrando em cada etapa qual sistema ainda era a fonte oficial e em que momento o retorno deixaria de ser apenas uma troca de endere&ccedil;o.\",\"O ensaio completo reproduziu manuten&ccedil;&atilde;o, interrup&ccedil;&atilde;o dos trabalhadores, sincroniza&ccedil;&atilde;o final, valida&ccedil;&atilde;o de manifestos, troca de configura&ccedil;&atilde;o, abertura controlada e retorno, medindo n&atilde;o apenas dura&ccedil;&atilde;o da c&oacute;pia, mas tamb&eacute;m o tempo para banco, cache, permiss&otilde;es, montagens e servi&ccedil;os auxiliares, porque uma janela calculada somente pelo volume de arquivos costuma ignorar os minutos necess&aacute;rios para confirmar que a aplica&ccedil;&atilde;o realmente consegue ler, gravar e servir conte&uacute;dos no novo ambiente.\"]},{\"title\":\"Um delta pequeno e uma valida&ccedil;&atilde;o enorme\",\"paragraphs\":[\"No corte definitivo os quinhentos terabytes j&aacute; estavam no destino, ent&atilde;o a indisponibilidade ficou concentrada no banco, nos arquivos criados ou alterados depois da &uacute;ltima sincroniza&ccedil;&atilde;o, nas exclus&otilde;es validadas e nas verifica&ccedil;&otilde;es finais, ainda assim acompanhamos volume e dura&ccedil;&atilde;o de cada conjunto para comparar com o ensaio e interromper com seguran&ccedil;a se a diferen&ccedil;a crescesse al&eacute;m do previsto, em vez de descobrir tarde demais que uma tarefa continuara produzindo dados na origem.\",\"A primeira abertura mostrou alertas que pareciam perda de dados, mas parte deles vinha de caches copiados, refer&ecirc;ncias tempor&aacute;rias e artefatos que deveriam ser regenerados, ent&atilde;o limpamos e reconstru&iacute;mos essas &aacute;reas antes de classificar uma diverg&ecirc;ncia como falha real, cuidado importante para n&atilde;o iniciar uma transfer&ecirc;ncia emergencial de dados desnecess&aacute;rios e, ao mesmo tempo, n&atilde;o usar a palavra cache como explica&ccedil;&atilde;o gen&eacute;rica para qualquer arquivo ausente.\",\"A valida&ccedil;&atilde;o combinou contagens por per&iacute;odo e diret&oacute;rio, compara&ccedil;&atilde;o de manifestos, hashes em grupos cr&iacute;ticos, refer&ecirc;ncias do banco, amostras de cursos e atividades, reprodu&ccedil;&atilde;o de v&iacute;deos, envio e download de arquivos, gera&ccedil;&atilde;o de novos conte&uacute;dos e acompanhamento de erros, enquanto as diferen&ccedil;as eram registradas com respons&aacute;vel e decis&atilde;o, pois em uma massa desse tamanho sempre existem exce&ccedil;&otilde;es e o objetivo n&atilde;o &eacute; fingir que todas desapareceram, mas saber quais s&atilde;o, por que existem e se afetam o uso.\",\"Depois da libera&ccedil;&atilde;o mantivemos a origem preservada por um per&iacute;odo definido, monitoramos leituras ausentes, crescimento, lat&ecirc;ncia e tarefas de arquivos, revisamos a quarentena antes da exclus&atilde;o definitiva e documentamos a pr&eacute; c&oacute;pia, as sincroniza&ccedil;&otilde;es, o delta, o retorno e os tempos reais, transformando uma opera&ccedil;&atilde;o excepcional em conhecimento reutiliz&aacute;vel para a pr&oacute;xima expans&atilde;o de armazenamento ou mudan&ccedil;a de infraestrutura.\"]}],\"closing\":\"A janela curta s&oacute; foi poss&iacute;vel porque o trabalho longo aconteceu antes, com invent&aacute;rio, transfer&ecirc;ncia cont&iacute;nua, manifestos e ensaios, deixando para a manuten&ccedil;&atilde;o apenas a diferen&ccedil;a que ainda precisava ser fechada e as provas de que banco e arquivos contavam a mesma hist&oacute;ria.\"},\"previous\":{\"slug\":\"quando-os-arquivos-mbz-deixaram-de-ser-uma-estrategia-de-migracao\",\"date\":\"2021-02-22\",\"title\":\"Quando os arquivos MBZ deixaram de ser uma estrat&eacute;gia de migra&ccedil;&atilde;o\",\"category\":\"Migra&ccedil;&atilde;o\",\"summary\":\"A restaura&ccedil;&atilde;o curso por curso reduzia riscos, mas o volume, os plugins e as depend&ecirc;ncias compartilhadas exigiram invent&aacute;rio, automa&ccedil;&atilde;o, retomada e uma valida&ccedil;&atilde;o muito mais cuidadosa.\",\"readingMinutes\":18,\"sections\":[{\"title\":\"Uma estrat&eacute;gia segura que come&ccedil;ou a ficar pequena\",\"paragraphs\":[\"Migrar cursos por arquivos MBZ era uma escolha f&aacute;cil de explicar, permitia levar uma disciplina por vez, testar o resultado e manter o ambiente antigo dispon&iacute;vel, al&eacute;m de evitar uma mudan&ccedil;a direta de banco entre vers&otilde;es muito distantes do Software Moodle&trade;, por&eacute;m a estrat&eacute;gia come&ccedil;ou a mostrar limites quando a quantidade de cursos cresceu, os pacotes passaram a ocupar muitos gigabytes e surgiram depend&ecirc;ncias que n&atilde;o pertenciam claramente a uma &uacute;nica disciplina, ent&atilde;o o que parecia um processo simples de backup e restaura&ccedil;&atilde;o virou uma sequ&ecirc;ncia longa de esperas, falhas tardias e verifica&ccedil;&otilde;es manuais que n&atilde;o caberia na janela prevista para a mudan&ccedil;a.\",\"Antes de automatizar, fizemos um invent&aacute;rio que classificava cada curso por tamanho, formato, quantidade de atividades, plugins usados, arquivos, usu&aacute;rios, banco de quest&otilde;es, m&eacute;todos de inscri&ccedil;&atilde;o e integra&ccedil;&otilde;es externas, porque processar tudo na ordem alfab&eacute;tica deixaria os maiores problemas para aparecerem por acaso, enquanto a classifica&ccedil;&atilde;o permitia criar grupos semelhantes, testar primeiro casos representativos e identificar cursos que exigiam uma decis&atilde;o antes da migra&ccedil;&atilde;o, como atividades de um plugin sem vers&atilde;o compat&iacute;vel ou links para um servi&ccedil;o que tamb&eacute;m seria substitu&iacute;do.\",\"Os primeiros backups confirmaram que tamanho n&atilde;o explicava sozinho a dura&ccedil;&atilde;o, pois um curso com muitos question&aacute;rios e quest&otilde;es compartilhadas podia levar mais tempo do que outro com arquivos maiores, algumas tarefas pareciam paradas enquanto compactavam ou reconstru&iacute;am estruturas e um pacote gerado com sucesso ainda podia falhar somente perto do final da restaura&ccedil;&atilde;o, ent&atilde;o passamos a registrar as etapas internas, o tempo de cada fase, o &uacute;ltimo avan&ccedil;o e as mensagens relevantes, dando &agrave; equipe condi&ccedil;&otilde;es de distinguir um processamento lento de uma interrup&ccedil;&atilde;o real.\"]},{\"title\":\"Uma fila que sabia continuar\",\"paragraphs\":[\"A automa&ccedil;&atilde;o foi constru&iacute;da ao redor de uma fila por curso, com situa&ccedil;&atilde;o, tentativa, hor&aacute;rios, origem, destino, tamanho esperado e local dos registros, sem esconder os comandos executados pelo Software Moodle&trade;, pois quando um pacote apresentava erro precis&aacute;vamos reproduzir exatamente aquela unidade de trabalho e n&atilde;o reiniciar centenas de cursos que j&aacute; estavam corretos, ent&atilde;o cada item podia ser retomado, refeito ou separado para an&aacute;lise, enquanto o restante avan&ccedil;ava dentro de limites definidos para n&atilde;o sobrecarregar banco, processador e armazenamento.\",\"Tamb&eacute;m separamos gera&ccedil;&atilde;o, transporte, restaura&ccedil;&atilde;o e valida&ccedil;&atilde;o, porque executar tudo como uma &uacute;nica a&ccedil;&atilde;o tornava dif&iacute;cil perceber onde o tempo estava sendo gasto e aumentava o custo de qualquer repeti&ccedil;&atilde;o, assim um backup conclu&iacute;do podia aguardar a transfer&ecirc;ncia sem prender o ambiente de origem, arquivos j&aacute; conferidos n&atilde;o eram copiados novamente e uma falha de restaura&ccedil;&atilde;o voltava apenas &agrave; etapa necess&aacute;ria, com hashes para garantir que o pacote analisado no destino era o mesmo produzido na origem.\",\"O banco de quest&otilde;es exigiu uma revis&atilde;o mais profunda, j&aacute; que categorias, contextos e quest&otilde;es compartilhadas podiam atravessar cursos de uma forma que a contagem simples de atividades n&atilde;o mostrava, por isso criamos verifica&ccedil;&otilde;es que comparavam categorias, quantidade de quest&otilde;es, refer&ecirc;ncias usadas pelos question&aacute;rios e amostras de tentativas, al&eacute;m de definir uma ordem para cursos relacionados quando isso reduzia conflitos, trabalho que evitou a falsa sensa&ccedil;&atilde;o de sucesso de abrir a p&aacute;gina inicial do curso e encontrar todas as se&ccedil;&otilde;es enquanto uma avalia&ccedil;&atilde;o importante permanecia incompleta.\"]},{\"title\":\"O ensaio que revelou o trabalho escondido\",\"paragraphs\":[\"A migra&ccedil;&atilde;o completa foi executada primeiro em homologa&ccedil;&atilde;o com uma c&oacute;pia representativa dos dados, medindo o tempo de backup, transfer&ecirc;ncia, restaura&ccedil;&atilde;o, tarefas posteriores e valida&ccedil;&atilde;o, ao mesmo tempo em que registr&aacute;vamos toda interven&ccedil;&atilde;o manual, como substituir uma atividade, ajustar uma permiss&atilde;o ou corrigir um conte&uacute;do antigo, porque cada minuto gasto fora da automa&ccedil;&atilde;o precisava entrar na previs&atilde;o do corte e alguns ajustes aparentemente r&aacute;pidos se repetiriam em dezenas de cursos.\",\"Depois do ensaio, os cursos que continuaram recebendo altera&ccedil;&otilde;es foram identificados para um novo processamento pr&oacute;ximo &agrave; data definitiva, enquanto aqueles encerrados e j&aacute; validados n&atilde;o precisaram ocupar a janela novamente, o que diminuiu o volume durante a indisponibilidade e permitiu concentrar a equipe nos dados realmente modificados, mas essa decis&atilde;o s&oacute; foi segura porque cada pacote tinha data, vers&atilde;o, origem e resultado de valida&ccedil;&atilde;o, impedindo que uma c&oacute;pia antiga fosse confundida com a vers&atilde;o mais recente.\",\"Um dos comportamentos mais desconfort&aacute;veis acontecia quando a combina&ccedil;&atilde;o de question&aacute;rios, arquivos e tarefas pendentes mantinha o processo muito tempo sem produzir uma mensagem nova, dando a impress&atilde;o de travamento, ent&atilde;o adicionamos sinais de progresso que n&atilde;o dependiam apenas da sa&iacute;da final, acompanhando processos, tamanho de tempor&aacute;rios, atualiza&ccedil;&atilde;o de registros e dura&ccedil;&atilde;o esperada para aquele perfil de curso, com limites que avisavam quando o comportamento sa&iacute;a do intervalo observado em homologa&ccedil;&atilde;o e precisava de investiga&ccedil;&atilde;o.\"]},{\"title\":\"Validar o que o estudante realmente encontraria\",\"paragraphs\":[\"A compara&ccedil;&atilde;o final foi al&eacute;m do n&uacute;mero de se&ccedil;&otilde;es e atividades, incluindo arquivos, matr&iacute;culas, grupos, notas, conclus&otilde;es, categorias de quest&otilde;es e amostras de tentativas, al&eacute;m de navega&ccedil;&atilde;o real nos cursos de maior risco, porque diferen&ccedil;as de vers&atilde;o podiam transformar configura&ccedil;&otilde;es, permiss&otilde;es e formatos sem produzir um erro durante a restaura&ccedil;&atilde;o, ent&atilde;o os resultados autom&aacute;ticos apontavam diverg&ecirc;ncias e a equipe pedag&oacute;gica validava aquilo que dependia de contexto, como apar&ecirc;ncia de uma atividade, regra de conclus&atilde;o ou disponibilidade condicionada.\",\"Mantivemos o ambiente anterior dispon&iacute;vel durante a homologa&ccedil;&atilde;o e o per&iacute;odo de confer&ecirc;ncia, com regras claras para evitar que alunos continuassem produzindo dados nos dois lados, e preparamos retorno por conjunto de cursos em vez de imaginar uma revers&atilde;o &uacute;nica para toda a plataforma, pois a mesma granularidade que motivou o uso dos MBZ tamb&eacute;m poderia proteger a implanta&ccedil;&atilde;o caso uma &aacute;rea espec&iacute;fica apresentasse um problema depois da abertura.\",\"Os arquivos MBZ continuaram sendo parte da migra&ccedil;&atilde;o, mas deixaram de ser a estrat&eacute;gia inteira, passaram a funcionar dentro de um processo com invent&aacute;rio, classifica&ccedil;&atilde;o, fila, retomada, ensaio e valida&ccedil;&atilde;o, mudan&ccedil;a importante porque a ferramenta que transporta o curso n&atilde;o decide sozinha o que fazer com depend&ecirc;ncias, quanto tempo reservar, quais diferen&ccedil;as aceitar ou como provar que o aluno encontrou no novo ambiente aquilo que existia no anterior.\"]}],\"closing\":\"A migra&ccedil;&atilde;o ficou confi&aacute;vel quando cada curso deixou de ser apenas um arquivo e passou a ser uma unidade acompanhada do invent&aacute;rio at&eacute; a valida&ccedil;&atilde;o, com hist&oacute;rico suficiente para repetir somente o que falhou e explicar o resultado sem depender da mem&oacute;ria de quem estava na madrugada do corte.\"}}]\n")</script>
+<script>self.__VINEXT_RSC_DONE__ = true</script>
