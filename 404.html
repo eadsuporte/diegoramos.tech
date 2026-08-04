@@ -587,13 +587,9 @@
             }
         }
     </style>
-    <script>
-        (function () {
-            var saved = localStorage.getItem("diego-theme");
-            var preferred = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-            document.documentElement.dataset.theme = saved === "dark" || saved === "light" ? saved : preferred;
-        }());
-    </script>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <script src="assets/site.js"></script>
 </head>
 <body>
 <div class="page">
@@ -668,32 +664,5 @@
     </main>
 </div>
 
-<script>
-    (function () {
-        var root = document.documentElement;
-        var button = document.querySelector(".theme-toggle");
-        var icon = document.querySelector(".theme-icon");
-        var label = document.querySelector(".theme-label");
-        var path = document.querySelector("#requested-path");
-        var sun = '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>';
-        var moon = '<svg viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
-
-        function renderTheme() {
-            var dark = root.dataset.theme === "dark";
-            icon.innerHTML = dark ? sun : moon;
-            label.textContent = dark ? "Claro" : "Escuro";
-            button.setAttribute("aria-label", dark ? "Ativar modo claro" : "Ativar modo escuro");
-        }
-
-        button.addEventListener("click", function () {
-            root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
-            localStorage.setItem("diego-theme", root.dataset.theme);
-            renderTheme();
-        });
-
-        path.textContent = location.pathname;
-        renderTheme();
-    }());
-</script>
 </body>
 </html>
