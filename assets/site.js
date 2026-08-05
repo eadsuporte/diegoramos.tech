@@ -1,3 +1,7 @@
+if (location.protocol !== "https:") {
+    location.replace(location.href.replace(/^http:/, "https:"));
+}
+
 (function () {
     "use strict";
 
