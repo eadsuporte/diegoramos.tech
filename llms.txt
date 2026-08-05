@@ -1,0 +1,43 @@
+# Diego Ramos
+
+> Site pessoal de Diego Ramos sobre Software Moodle™, tecnologia educacional, infraestrutura, migrações, suporte técnico e projetos desenvolvidos nos bastidores da EAD Suporte.
+
+O conteúdo está em português do Brasil. O site reúne artigos técnicos mais extensos e relatos curtos de problemas encontrados durante projetos e atendimentos. Para respostas sobre um caso específico, prefira a página individual em vez dos resumos da página inicial.
+
+Diego Ramos escreve sobre desenvolvimento, operação e suporte de ambientes educacionais. O contato público está disponível pelo LinkedIn e pelo WhatsApp apresentados no próprio site.
+
+## Visão geral
+
+- [Página inicial](https://diegoramos.tech/): Apresentação de Diego Ramos, artigos em destaque, temas de atuação e contatos.
+- [Artigos](https://diegoramos.tech/artigos/): Índice dos artigos técnicos sobre Software Moodle™, infraestrutura, migração de dados, escalabilidade e ambientes isolados.
+- [Bastidores](https://diegoramos.tech/bastidores/): Arquivo cronológico de problemas técnicos, investigações e soluções relacionadas à operação de plataformas educacionais.
+
+## Artigos principais
+
+- [Um Software Moodle™ completamente isolado dentro de uma prisão](https://diegoramos.tech/artigos/um-moodle-completamente-isolado-dentro-de-uma-prisao/): Arquitetura sem internet, controle de arquivos, autenticação local, conteúdo offline, segurança e recuperação do ambiente.
+- [O Software Moodle™ que atravessava o oceano dentro de um navio](https://diegoramos.tech/artigos/o-moodle-que-atravessava-o-oceano-dentro-de-um-navio/): Instalações locais em embarcações e sincronização com uma plataforma em terra durante períodos de conectividade limitada.
+- [De 800 mil a um milhão de acessos no Software Moodle™](https://diegoramos.tech/artigos/de-800-mil-a-um-milhao-de-acessos-no-moodle/): Escalabilidade, filas, lentidão e comportamento do ambiente sob crescimento intenso de acessos.
+- [Quando os arquivos MBZ deixaram de ser uma estratégia de migração](https://diegoramos.tech/artigos/quando-os-arquivos-mbz-deixaram-de-ser-uma-estrategia-de-migracao/): Limites da restauração curso por curso, inventário de plugins, automação, retomada e validação.
+- [A migração de um bilhão de linhas de logs](https://diegoramos.tech/artigos/a-migracao-de-um-bilhao-de-linhas-de-logs/): Transferência de dados históricos em lotes sem interromper a chegada de novos eventos.
+- [A migração a quente de 500 TB de moodledata](https://diegoramos.tech/artigos/a-migracao-a-quente-de-500-tb-de-moodledata/): Pré-cópia, sincronizações incrementais, controle de exclusões e redução da janela final de manutenção.
+
+## Temas recorrentes
+
+- Software Moodle™ e tecnologia educacional
+- Desenvolvimento e manutenção de plugins
+- Migração de banco de dados e moodledata
+- Escalabilidade, cache, cron e desempenho
+- Ambientes offline ou completamente isolados
+- Autenticação, permissões e segurança
+- Backup, restauração e continuidade de serviço
+- Aplicativos, conteúdo offline, H5P, SCORM e avaliações
+
+## Contatos
+
+- [LinkedIn de Diego Ramos](https://www.linkedin.com/in/diegoramostech/): Perfil profissional.
+- [WhatsApp](https://wa.me/61493536147): Canal de contato informado no site.
+
+## Optional
+
+- [Sitemap XML](https://diegoramos.tech/sitemap.xml): Relação completa das páginas públicas indexáveis.
+- [Robots.txt](https://diegoramos.tech/robots.txt): Orientações de rastreamento e localização do sitemap.
